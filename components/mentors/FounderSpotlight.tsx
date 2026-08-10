@@ -77,7 +77,7 @@ export default function FounderSpotlight() {
               Dr. Md. Gulam Sarwar
             </h2>
             <p className="text-xl text-[#F97316] font-semibold mb-2">
-              Founder & Lead Mentor
+              Founder
             </p>
             <p className="text-gray-500 font-medium mb-8">
               Postdoctoral Fellow — IIT Kanpur
