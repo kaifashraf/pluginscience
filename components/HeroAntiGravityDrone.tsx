@@ -132,9 +132,9 @@ export default function HeroAntiGravityDrone({
           style={{ opacity: videoLoaded ? 1 : 0, transition: 'opacity 0.5s ease' }}
         />
 
-        {/* Horizontal line blur across the bottom to hide the watermark */}
+        {/* Targeted blur over the Gemini watermark in the bottom right of the video */}
         <div 
-          className="absolute bottom-0 left-0 w-full h-20 bg-transparent backdrop-blur-[12px] z-20 pointer-events-none" 
+          className="absolute bottom-0 right-0 w-32 h-32 bg-plugin-bg/30 backdrop-blur-[24px] z-20 pointer-events-none rounded-tl-full [mask-image:radial-gradient(ellipse_at_bottom_right,black_40%,transparent_100%)]" 
         />
 
         {/* Sound Toggle Button (Mobile Only) */}
