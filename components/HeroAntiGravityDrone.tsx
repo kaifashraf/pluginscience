@@ -134,7 +134,7 @@ export default function HeroAntiGravityDrone({
 
         {/* Targeted blur over the Gemini watermark in the bottom right of the video */}
         <div 
-          className="absolute bottom-0 right-0 w-32 h-32 bg-plugin-bg/30 backdrop-blur-[24px] z-20 pointer-events-none rounded-tl-full [mask-image:radial-gradient(ellipse_at_bottom_right,black_40%,transparent_100%)]" 
+          className="absolute bottom-4 right-6 w-28 h-28 bg-[#0A0D12]/80 backdrop-blur-3xl z-20 pointer-events-none rounded-3xl" 
         />
 
         {/* Sound Toggle Button (Mobile Only) */}
