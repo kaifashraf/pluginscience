@@ -32,15 +32,7 @@ const mentorsData = [
     bio: "Passionate about making technology accessible, Syed focuses on Artificial Intelligence, Deep Learning, and Data Science. As a B.Tech CSE AIML graduate from VIT, he participated in the prestigious Digital India RISC-V (DIR-V) Grand Challenge. He helps students build real, high-impact projects.",
     image: "/Kaif.jpeg"
   },
-  {
-    id: 8,
-    name: "Dr. Saista Tabassum",
-    designation: "Assistant Professor of Mathematics",
-    institution: "Dr. Rajendra Prasad Central Agricultural University",
-    expertise: ["Mathematics"],
-    bio: "With a Ph.D. in Mathematics from IIT (ISM) Dhanbad and postdoctoral research experience at IIT Bombay, Dr. Tabassum specializes in Applied Mathematics, fluid dynamics, mathematical modeling, and ocean engineering. She brings deep analytical expertise and academic rigor to her mentorship.",
-    image: "https://rpcau.ac.in/wp-content/uploads/2025/08/Dr-Saista-Tabssum-150x150.png"
-  },
+
   {
     id: 9,
     name: "Nekhat Shahreen",
