@@ -313,7 +313,7 @@ export default function HomeStory() {
             { icon: <Bot size={48} />, top: '70%', left: '15%', delay: 2 },
             { icon: <Rocket size={48} />, top: '80%', left: '85%', delay: 0.5 },
             { icon: <Compass size={48} />, top: '40%', left: '90%', delay: 1.5 },
-            { icon: <Sparkles size={48} />, top: '60%', left: '5%', delay: 2.5 },
+            { icon: <Sparkles size={48} className="text-blue-400 opacity-80 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]" />, top: '60%', left: '5%', delay: 2.5 },
             { icon: <Atom size={48} />, top: '15%', left: '50%', delay: 0.8 },
             { icon: <GraduationCap size={48} />, top: '85%', left: '50%', delay: 1.2 },
           ].map((item, i) => (
