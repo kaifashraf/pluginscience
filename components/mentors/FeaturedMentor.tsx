@@ -38,7 +38,7 @@ export default function FeaturedMentor() {
             className="w-full lg:w-1/2"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-100 mb-6">
-              <span className="text-sm font-bold text-[#F97316] tracking-widest uppercase">Domain Expert and Advisor</span>
+              <span className="text-sm font-bold text-[#F97316] tracking-widest uppercase">Featured Mentor</span>
             </div>
 
             <h2 className="text-4xl md:text-5xl font-extrabold text-[#0B1121] mb-2 tracking-tight">
