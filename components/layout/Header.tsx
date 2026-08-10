@@ -19,7 +19,7 @@ const navLinks = [
       { label: 'AI & Data Science', href: '/workshops/ai-and-data-science' },
     ]
   },
-  { label: 'Mentors', href: '/mentors' },
+  { label: 'Mentor/Advisor', href: '/mentors' },
   { label: 'Community', href: '/community/events' },
   { label: 'Volunteer', href: '/volunteer' },
   { label: 'About', href: '/about' },
