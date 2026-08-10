@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: theme('colors.plugin-light');
+    color: theme('colors.plugin-text');
+    font-family: theme('fontFamily.sans');
+    overflow-x: hidden;
+  }
+  
+  ::selection {
+    background-color: theme('colors.plugin-dark');
+    color: theme('colors.plugin-light');
+  }
+
+  /* Dark mode handling via class on sections */
+  .dark-section {
+    background-color: theme('colors.plugin-dark');
+    color: theme('colors.plugin-text-inverse');
+  }
+  
+  .dark-section ::selection {
+    background-color: theme('colors.theme-drone');
+    color: #ffffff;
+  }
+
+  /* Custom minimal scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#E5E5E5] rounded-full;
+  }
+  
+  .dark-section ::-webkit-scrollbar-thumb {
+    @apply bg-[#333333];
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#CCCCCC];
+  }
+}
+
+@layer components {
+  /* Container sizing */
+  .container-fluid {
+    @apply w-full px-6 md:px-12 lg:px-24 mx-auto max-w-content;
+  }
+  
+  .container-grid {
+    @apply grid grid-cols-4 md:grid-cols-12 gap-6;
+  }
+
+  /* Technical Lines & Borders */
+  .tech-border-t {
+    border-top-width: 1px;
+    border-top-color: theme('colors.plugin-border');
+  }
+  .dark-section .tech-border-t {
+    border-top-color: theme('colors.plugin-border-dark');
+  }
+  
+  .tech-border-b {
+    border-bottom-width: 1px;
+    border-bottom-color: theme('colors.plugin-border');
+  }
+  .dark-section .tech-border-b {
+    border-bottom-color: theme('colors.plugin-border-dark');
+  }
+
+  .tech-border-y {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-color: theme('colors.plugin-border');
+    border-bottom-color: theme('colors.plugin-border');
+  }
+  .dark-section .tech-border-y {
+    border-top-color: theme('colors.plugin-border-dark');
+    border-bottom-color: theme('colors.plugin-border-dark');
+  }
+
+  /* Typography extensions */
+  .display-font {
+    @apply font-display tracking-tight;
+  }
+  
+  .tech-label {
+    @apply font-mono text-label uppercase tracking-widest;
+    color: theme('colors.plugin-text-muted');
+  }
+  .dark-section .tech-label {
+    color: theme('colors.plugin-text-inverse-muted');
+  }
+
+  /* Thematic Gradients / Glows */
+  .hover-glow-drone:hover {
+    box-shadow: 0 0 40px rgba(0, 85, 255, 0.15);
+  }
+  .hover-glow-robotics:hover {
+    box-shadow: 0 0 40px rgba(255, 85, 0, 0.15);
+  }
+  
+  /* Technical Grid Backgrounds */
+  .bg-tech-grid {
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(13, 14, 18, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(13, 14, 18, 0.03) 1px, transparent 1px);
+  }
+
+  .dark-section .bg-tech-grid, .bg-tech-grid-dark {
+    background-image: 
+      linear-gradient(to right, rgba(247, 247, 245, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(247, 247, 245, 0.03) 1px, transparent 1px);
+  }
+  
+  /* Buttons */
+  .btn-premium {
+    @apply inline-flex items-center justify-center px-8 py-4 font-medium tracking-wide transition-transform hover:scale-[1.02] hover:-translate-y-0.5 active:scale-95;
+    background-color: theme('colors.plugin-dark');
+    color: theme('colors.plugin-light');
+  }
+  
+  .dark-section .btn-premium {
+    background-color: theme('colors.plugin-light');
+    color: theme('colors.plugin-dark');
+  }
+  
+  .btn-outline-premium {
+    @apply inline-flex items-center justify-center px-8 py-4 border font-medium tracking-wide transition-colors;
+    border-color: theme('colors.plugin-border');
+    color: theme('colors.plugin-text');
+  }
+  
+  .btn-outline-premium:hover {
+    background-color: theme('colors.plugin-dark');
+    color: theme('colors.plugin-light');
+  }
+  
+  .dark-section .btn-outline-premium {
+    border-color: theme('colors.plugin-border-dark');
+    color: theme('colors.plugin-text-inverse');
+  }
+  
+  .dark-section .btn-outline-premium:hover {
+    background-color: theme('colors.plugin-light');
+    color: theme('colors.plugin-dark');
+  }
+}
+
+@layer utilities {
+  .clip-path-inset-0 {
+    clip-path: inset(0 0 0 0);
+  }
+  .clip-path-inset-full {
+    clip-path: inset(0 100% 0 0);
+  }
+}
