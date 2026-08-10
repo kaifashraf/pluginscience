@@ -70,7 +70,7 @@ export default function FounderSpotlight() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 mb-6">
               <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-              <span className="text-sm font-bold text-[#0B1121] tracking-widest uppercase">Featured Mentor</span>
+              <span className="text-sm font-bold text-[#0B1121] tracking-widest uppercase">Domain Expert and Advisor</span>
             </div>
 
             <h2 className="text-4xl md:text-5xl font-extrabold text-[#0B1121] mb-2 tracking-tight">
