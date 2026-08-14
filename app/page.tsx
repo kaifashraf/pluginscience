@@ -1,7 +1,9 @@
+'use client';
+
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import Hero from '@/components/home/Hero';
-import FadeIn from '@/components/ui/FadeIn';
 
 const disciplines = [
   {
@@ -44,13 +46,73 @@ const disciplines = [
 
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start']
+  });
+  const heroY = useTransform(heroScroll, [0, 1], [0, 200]);
+  const heroOpacity = useTransform(heroScroll, [0, 0.7], [1, 0]);
+
   return (
-    <div className="bg-[#F5F3EF] min-h-screen">
+    <div ref={containerRef} className="bg-[#F5F3EF] min-h-screen">
 
       {/* ═══════════════════════════════════════
           HERO — FULL SCREEN EDITORIAL
       ═══════════════════════════════════════ */}
-      <Hero />
+      <section
+        ref={heroRef}
+        className="relative h-screen overflow-hidden bg-[#0A0A0A]"
+      >
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay loop muted playsInline
+            className="w-full h-full object-cover opacity-55"
+            src="/hero/workshop.mp4"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/80" />
+        </div>
+
+        {/* Main headline */}
+        <motion.div
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="absolute bottom-0 left-0 right-0 z-10 container-fluid pb-4"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Giant Display Headline */}
+            <h1 className="font-display font-light text-white leading-[0.88] tracking-tight mb-10"
+                style={{ fontSize: 'clamp(4.5rem, 13vw, 13rem)' }}>
+              Where Builders<br />
+              <em className="not-italic font-medium" style={{ color: '#E8E4DC' }}>Are Born.</em>
+            </h1>
+
+            {/* Bottom row: description + CTA */}
+            <div className="flex flex-col md:flex-row md:items-end gap-10 md:gap-24 border-t border-white/10 pt-10 mt-16">
+              <p className="text-white/70 text-xl font-sans font-light leading-relaxed max-w-lg">
+                Hands-on workshops in aerospace, robotics, AI, and beyond. For students who want to make things that actually work.
+              </p>
+              <div className="flex items-center gap-8 flex-shrink-0">
+                <Link href="/workshops">
+                  <button className="group flex items-center gap-4 bg-white text-[#0A0A0A] px-8 py-4 text-sm font-sans font-medium hover:bg-[#E8E4DC] transition-colors">
+                    Explore Workshops
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </Link>
+                <Link href="/about" className="text-white/70 text-sm font-sans hover:text-white transition-colors border-b border-white/30 pb-0.5 hover:border-white">
+                  About PluginScience
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
 
       {/* ═══════════════════════════════════════
           PILLARS ROW — launch-ready, aspirational
@@ -88,7 +150,12 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
 
             {/* Left: the statement */}
-            <FadeIn delay={0} duration={0.9} y={24}>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            >
               <blockquote className="pl-8 border-l-2 border-[#0A0A0A]">
                 <p
                   className="font-display font-light text-[#0A0A0A] leading-[1.25]"
@@ -98,7 +165,7 @@ export default function Home() {
                   We awaken the <em className="italic font-medium">builder within.</em>
                 </p>
               </blockquote>
-            </FadeIn>
+            </motion.div>
 
             {/* Right: belief + sub-points */}
             <div className="flex flex-col justify-between gap-16">
@@ -152,10 +219,11 @@ export default function Home() {
           <div className="divide-y divide-white/10">
             {disciplines.map((d, i) => (
               <Link href={d.href} key={i}>
-                <FadeIn
-                  delay={i * 0.08}
-                  duration={0.9}
-                  y={0}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
                   className="group grid grid-cols-1 md:grid-cols-12 gap-6 py-10 md:py-14 cursor-pointer hover:bg-white/[0.02] transition-colors px-2"
                 >
                   <div className="md:col-span-1 flex items-start pt-1">
@@ -178,7 +246,7 @@ export default function Home() {
                       <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
                     </div>
                   </div>
-                </FadeIn>
+                </motion.div>
               </Link>
             ))}
           </div>
@@ -254,7 +322,12 @@ export default function Home() {
           </span>
         </div>
         <div className="container-fluid relative z-10">
-          <FadeIn delay={0} duration={1} y={30}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
             <p className="text-white/40 text-xs font-mono uppercase tracking-[0.25em] mb-10">Begin here.</p>
             <h2 className="font-display font-light text-white leading-[1] mb-14"
                 style={{ fontSize: 'clamp(3.5rem, 8vw, 8rem)' }}>
@@ -267,7 +340,7 @@ export default function Home() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
-          </FadeIn>
+          </motion.div>
         </div>
       </section>
 
