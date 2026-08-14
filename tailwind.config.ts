@@ -63,6 +63,7 @@ const config: Config = {
       animation: {
         'fade-in': 'fadeIn 1s ease-out forwards',
         'fade-up': 'fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'fade-up-hero': 'fadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'reveal-right': 'revealRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'draw-line': 'drawLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'float-subtle': 'floatSubtle 6s ease-in-out infinite',
