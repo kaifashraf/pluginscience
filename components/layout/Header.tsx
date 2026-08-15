@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingBag, ChevronDown } from 'lucide-react';
 import { useCartStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
-import SearchModal from '@/components/SearchModal';
+import dynamic from 'next/dynamic';
+
+const SearchModal = dynamic(() => import('@/components/SearchModal'), { ssr: false });
 
 const navLinks = [
   { label: 'Home', href: '/' },

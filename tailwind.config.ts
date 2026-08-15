@@ -34,9 +34,9 @@ const config: Config = {
         'plugin-border-dark': 'rgba(247, 247, 245, 0.1)',
       },
       fontFamily: {
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
-        display: ['Cormorant Garamond', 'Georgia', 'serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-cormorant)', 'Georgia', 'serif'],
+        mono: ['var(--font-jetbrains)', 'monospace'],
       },
       fontSize: {
         'display-lg': ['clamp(4rem, 10vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
@@ -63,6 +63,7 @@ const config: Config = {
       animation: {
         'fade-in': 'fadeIn 1s ease-out forwards',
         'fade-up': 'fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'slide-up': 'slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'reveal-right': 'revealRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'draw-line': 'drawLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'float-subtle': 'floatSubtle 6s ease-in-out infinite',
@@ -75,6 +76,10 @@ const config: Config = {
         fadeUp: {
           '0%': { opacity: '0', transform: 'translateY(40px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(30px)' },
+          '100%': { transform: 'translateY(0)' },
         },
         revealRight: {
           '0%': { clipPath: 'inset(0 100% 0 0)' },

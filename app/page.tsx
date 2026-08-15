@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
@@ -46,8 +46,8 @@ const disciplines = [
 
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
@@ -56,8 +56,18 @@ export default function Home() {
   const heroY = useTransform(heroScroll, [0, 1], [0, 200]);
   const heroOpacity = useTransform(heroScroll, [0, 0.7], [1, 0]);
 
+  // Defer video loading so the 2.7MB file doesn't compete with critical resources
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.src = '/hero/workshop.mp4';
+      video.load();
+      video.play().catch(() => {});
+    }
+  }, []);
+
   return (
-    <div ref={containerRef} className="bg-[#F5F3EF] min-h-screen">
+    <div className="bg-[#F5F3EF] min-h-screen">
 
       {/* ═══════════════════════════════════════
           HERO — FULL SCREEN EDITORIAL
@@ -69,9 +79,10 @@ export default function Home() {
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <video
-            autoPlay loop muted playsInline
+            ref={videoRef}
+            loop muted playsInline
+            poster="/hero/frames-lowres/frame_001.webp"
             className="w-full h-full object-cover opacity-55"
-            src="/hero/workshop.mp4"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/80" />
         </div>
@@ -81,13 +92,9 @@ export default function Home() {
           style={{ y: heroY, opacity: heroOpacity }}
           className="absolute bottom-0 left-0 right-0 z-10 container-fluid pb-4"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div className="animate-slide-up" style={{ animationDuration: '1.4s' }}>
             {/* Giant Display Headline */}
-            <h1 className="font-display font-light text-white leading-[0.88] tracking-tight mb-10"
+            <h1 className="font-display font-light text-white leading-[0.88] tracking-tight mb-10 whitespace-nowrap"
                 style={{ fontSize: 'clamp(4.5rem, 13vw, 13rem)' }}>
               Where Builders<br />
               <em className="not-italic font-medium" style={{ color: '#E8E4DC' }}>Are Born.</em>
@@ -110,7 +117,7 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </section>
 
@@ -150,12 +157,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
 
             {/* Left: the statement */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <div>
               <blockquote className="pl-8 border-l-2 border-[#0A0A0A]">
                 <p
                   className="font-display font-light text-[#0A0A0A] leading-[1.25]"
@@ -165,7 +167,7 @@ export default function Home() {
                   We awaken the <em className="italic font-medium">builder within.</em>
                 </p>
               </blockquote>
-            </motion.div>
+            </div>
 
             {/* Right: belief + sub-points */}
             <div className="flex flex-col justify-between gap-16">
@@ -219,11 +221,7 @@ export default function Home() {
           <div className="divide-y divide-white/10">
             {disciplines.map((d, i) => (
               <Link href={d.href} key={i}>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
+                <div
                   className="group grid grid-cols-1 md:grid-cols-12 gap-6 py-10 md:py-14 cursor-pointer hover:bg-white/[0.02] transition-colors px-2"
                 >
                   <div className="md:col-span-1 flex items-start pt-1">
@@ -246,7 +244,7 @@ export default function Home() {
                       <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </Link>
             ))}
           </div>
@@ -322,12 +320,7 @@ export default function Home() {
           </span>
         </div>
         <div className="container-fluid relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div>
             <p className="text-white/40 text-xs font-mono uppercase tracking-[0.25em] mb-10">Begin here.</p>
             <h2 className="font-display font-light text-white leading-[1] mb-14"
                 style={{ fontSize: 'clamp(3.5rem, 8vw, 8rem)' }}>
@@ -340,7 +333,7 @@ export default function Home() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 
