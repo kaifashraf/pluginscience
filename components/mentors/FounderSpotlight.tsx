@@ -30,7 +30,7 @@ export default function FounderSpotlight() {
           >
             <div className="relative w-full aspect-[4/5] max-w-md mx-auto lg:mx-0 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
               <Image 
-                src="/gulam_sarwar.jpeg"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/gulam_sarwar.jpeg`}
                 alt="Dr. Md Gulam Sarwar"
                 fill
                 className="object-cover object-top"

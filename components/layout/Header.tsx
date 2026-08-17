@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ShoppingBag, ChevronDown } from 'lucide-react';
-import { useCartStore } from '@/lib/store';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 
@@ -16,13 +15,13 @@ const navLinks = [
     label: 'Workshops', 
     href: '#',
     dropdown: [
-      { label: 'Aerospace & Drones', href: '/workshops/aerospace-and-drones' },
-      { label: 'Robotics & Electronics', href: '/workshops/robotics-and-electronics' },
-      { label: 'AI & Data Science', href: '/workshops/ai-and-data-science' },
+      { label: 'Aerospace & Drones', href: '/products/workshops' },
+      { label: 'Robotics & Electronics', href: '/products/workshops' },
+      { label: 'AI & Data Science', href: '/products/workshops' },
     ]
   },
   { label: 'Mentor/Advisor', href: '/mentors' },
-  { label: 'Community', href: '/community/events' },
+  { label: 'Contact', href: '/contact' },
   { label: 'Volunteer', href: '/volunteer' },
   { label: 'About', href: '/about' },
 ];
@@ -32,16 +31,6 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
-  const { openCart, getItemCount } = useCartStore();
-  const [itemCount, setItemCount] = useState(0);
-
-  useEffect(() => {
-    setItemCount(getItemCount());
-    const unsubscribe = useCartStore.subscribe((state) => {
-      setItemCount(state.getItemCount());
-    });
-    return unsubscribe;
-  }, [getItemCount]);
 
   useEffect(() => {
     const handleScroll = () => {

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -83,18 +84,65 @@ export default function VolunteerPage() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const formData = new FormData();
-      Object.entries(form).forEach(([key, val]) => formData.append(key, val));
-      if (resume) formData.append('resume', resume);
+      const supabase = createClient();
+      let resumeUrl: string | null = null;
 
-      const res = await fetch('/api/volunteer', {
-        method: 'POST',
-        body: formData
-      });
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.detail || errData.error || 'Submission failed');
+      // Upload resume to Supabase Storage if provided
+      if (resume) {
+        const fileExt = resume.name.split('.').pop();
+        const fileName = `volunteer_${Date.now()}_${Math.random().toString(36).slice(2)}.${fileExt}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('resumes')
+          .upload(fileName, resume);
+
+        if (uploadError) throw new Error('Resume upload failed: ' + uploadError.message);
+
+        const { data: urlData } = supabase.storage
+          .from('resumes')
+          .getPublicUrl(fileName);
+        resumeUrl = urlData.publicUrl;
       }
+
+      // Insert volunteer application into Supabase
+      const { error: insertError } = await supabase
+        .from('volunteers')
+        .insert({
+          full_name: form.name,
+          email: form.email,
+          phone: form.phone || null,
+          college: form.college,
+          year_of_study: form.year,
+          preferred_role: form.role,
+          reason: form.why,
+          resume_url: resumeUrl,
+        });
+
+      if (insertError) throw new Error('Submission failed: ' + insertError.message);
+
+      // Sync to Google Sheets (fire-and-forget — don't block on failure)
+      try {
+        await fetch('https://script.google.com/macros/s/AKfycbwE6z3NeoQ3pw5yiGsHRxLvANMYngOLgNxxkqv_KVSVLetmMlGtP7083QuJ7ftfKHpv/exec', {
+          method: 'POST',
+          redirect: 'follow',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            token: 'PLUGINSCIENCE_VOLUNTEER2003',
+            type: 'volunteer',
+            name: form.name,
+            email: form.email,
+            phone: form.phone || '',
+            college: form.college,
+            year: form.year,
+            role: form.role,
+            why: form.why,
+            resumeUrl: resumeUrl || '',
+          }),
+        });
+      } catch {
+        // Sheet sync failure is non-critical — Supabase record is already saved
+        console.warn('Google Sheets sync failed (non-critical)');
+      }
+
       setSubmitted(true);
     } catch (error: any) {
       console.error(error);

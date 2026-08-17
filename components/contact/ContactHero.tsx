@@ -70,7 +70,7 @@ export default function ContactHero() {
           >
             <div className="relative w-full aspect-square max-w-lg mx-auto lg:mx-0 lg:ml-auto">
               <Image 
-                src="/contact_hero_illustration.png"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/contact_hero_illustration.png`}
                 alt="Students, teachers, and mentors collaborating"
                 fill
                 priority

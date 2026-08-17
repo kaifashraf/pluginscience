@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { UploadCloud, FileText, ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
 import { useState, useRef } from 'react';
+import { createClient } from '@/lib/supabase/client';
 
 const CATEGORIES = ['Aeromodelling', 'Robotics', 'Data Science', 'Electronics', 'Career Guidance', 'Science', 'Maths', 'Creativity'];
 
@@ -68,16 +69,75 @@ export default function ApplicationForm() {
 
     setIsSubmitting(true);
     try {
-      const formData = new FormData();
-      Object.entries(form).forEach(([k, v]) => formData.append(k, v));
-      formData.append('mentoringCategories', selectedCategories.join(','));
-      if (cvFile) formData.append('cv', cvFile);
+      const supabase = createClient();
+      let cvUrl: string | null = null;
 
-      const res = await fetch('/api/mentor', { method: 'POST', body: formData });
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.detail || errData.error || 'Submission failed');
+      // Upload CV to Supabase Storage if provided
+      if (cvFile) {
+        const fileExt = cvFile.name.split('.').pop();
+        const fileName = `mentor_${Date.now()}_${Math.random().toString(36).slice(2)}.${fileExt}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('resumes')
+          .upload(fileName, cvFile);
+
+        if (uploadError) throw new Error('CV upload failed: ' + uploadError.message);
+
+        const { data: urlData } = supabase.storage
+          .from('resumes')
+          .getPublicUrl(fileName);
+        cvUrl = urlData.publicUrl;
       }
+
+      // Insert mentor application into Supabase
+      const { error: insertError } = await supabase
+        .from('mentor_applications')
+        .insert({
+          first_name: form.firstName,
+          last_name: form.lastName,
+          email: form.email,
+          phone: form.phone,
+          current_company: form.currentCompany || null,
+          current_position: form.currentPosition,
+          expertise: form.expertise,
+          years_experience: form.yearsExperience,
+          linkedin_url: form.linkedinUrl || null,
+          mentoring_categories: selectedCategories,
+          availability: form.availability,
+          short_bio: form.shortBio || null,
+          motivation: form.motivation,
+          cv_url: cvUrl,
+        });
+
+      if (insertError) throw new Error('Submission failed: ' + insertError.message);
+
+      // Sync to Google Sheets (fire-and-forget — don't block on failure)
+      try {
+        await fetch('https://script.google.com/macros/s/AKfycbwE6z3NeoQ3pw5yiGsHRxLvANMYngOLgNxxkqv_KVSVLetmMlGtP7083QuJ7ftfKHpv/exec', {
+          method: 'POST',
+          redirect: 'follow',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            token: 'PLUGINSCIENCE_VOLUNTEER2003',
+            type: 'mentor',
+            name: `${form.firstName} ${form.lastName}`,
+            email: form.email,
+            phone: form.phone || '',
+            currentCompany: form.currentCompany || '',
+            currentPosition: form.currentPosition,
+            expertise: form.expertise,
+            yearsExperience: form.yearsExperience,
+            linkedinUrl: form.linkedinUrl || '',
+            categories: selectedCategories.join(', '),
+            availability: form.availability,
+            motivation: form.motivation,
+            cvUrl: cvUrl || '',
+          }),
+        });
+      } catch {
+        // Sheet sync failure is non-critical — Supabase record is already saved
+        console.warn('Google Sheets sync failed (non-critical)');
+      }
+
       setSubmitted(true);
     } catch (error: any) {
       console.error(error);

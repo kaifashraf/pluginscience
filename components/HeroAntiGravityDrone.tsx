@@ -116,7 +116,7 @@ export default function HeroAntiGravityDrone({
         {/* Video Element (replaces canvas) */}
         <video
           ref={videoRef}
-          src="/hero/workshop.mp4"
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/workshop.mp4`}
           className="absolute inset-0 w-full h-full object-cover scale-[1.05] pointer-events-none select-none"
           muted
           autoPlay

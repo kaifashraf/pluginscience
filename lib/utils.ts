@@ -29,13 +29,3 @@ export function slugify(text: string): string {
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
-
-export function getSeatsRemaining(totalSeats: number, bookedSeats: number): number {
-  return Math.max(0, totalSeats - bookedSeats);
-}
-
-export function getSeatsBadgeColor(remaining: number): string {
-  if (remaining <= 0) return 'bg-plugin-danger/20 text-plugin-danger';
-  if (remaining <= 5) return 'bg-plugin-warning/20 text-plugin-warning';
-  return 'bg-plugin-success/20 text-plugin-success';
-}

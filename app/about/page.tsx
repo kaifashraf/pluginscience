@@ -138,7 +138,7 @@ export default function AboutPage() {
               <div className="relative">
                 <div className="aspect-[4/5] relative overflow-hidden">
                   <Image
-                    src="/gulam_sarwar.jpeg"
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/gulam_sarwar.jpeg`}
                     alt="Dr. Md Gulam Sarwar"
                     fill
                     className="object-cover object-top transition-transform duration-700 hover:scale-105"
@@ -221,7 +221,7 @@ export default function AboutPage() {
             <motion.div {...fadeUp} transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
               <div className="relative w-36 h-36 mb-8 rounded-full overflow-hidden ring-4 ring-white shadow-xl shadow-[#0A0A0A]/5">
                 <Image
-                  src="/Kaif.jpeg"
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Kaif.jpeg`}
                   alt="Syed Kaif Ashraf"
                   fill
                   className="object-cover object-center"

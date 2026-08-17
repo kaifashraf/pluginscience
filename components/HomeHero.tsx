@@ -38,7 +38,7 @@ export default function HomeHero() {
           loop
           muted
           playsInline
-          poster="/hero/frames-lowres/frame_001.webp"
+          poster={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/frames-lowres/frame_001.webp`}
           className="w-full h-full object-cover opacity-55"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/80" />

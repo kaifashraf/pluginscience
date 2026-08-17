@@ -1,23 +1,4 @@
-export interface Profile {
-  id: string;
-  email: string;
-  full_name: string | null;
-  phone: string | null;
-  avatar_url: string | null;
-  role: 'customer' | 'admin';
-  created_at: string;
-}
-
-export interface SiteSettings {
-  id: number;
-  site_name: string;
-  tagline: string;
-  logo_url: string | null;
-  currency_code: string;
-  hero_headline: string;
-  hero_subheading: string;
-  hero_cta_text: string;
-}
+// ─── Static Data Types ───────────────────────────────────────────────────────
 
 export interface Category {
   id: string;
@@ -26,7 +7,13 @@ export interface Category {
   description: string | null;
   image_url: string | null;
   parent_id: string | null;
-  created_at: string;
+}
+
+export interface ProductImage {
+  id: string;
+  product_id: string;
+  image_url: string;
+  sort_order: number;
 }
 
 export interface Product {
@@ -37,115 +24,43 @@ export interface Product {
   category_id: string;
   price: number;
   sale_price: number | null;
-  stock_quantity: number;
   is_workshop: boolean;
   specs: Record<string, unknown>;
-  status: 'draft' | 'active';
-  created_at: string;
-  updated_at: string;
-  // Joined
+  // Joined / resolved references
   category?: Category;
   images?: ProductImage[];
-  batches?: WorkshopBatch[];
 }
 
-export interface WorkshopBatch {
-  id: string;
-  product_id: string;
-  batch_date: string;
-  location: string;
-  total_seats: number;
-  booked_seats: number;
-}
+// ─── Application Types (Supabase) ────────────────────────────────────────────
 
-export interface ProductImage {
-  id: string;
-  product_id: string;
-  image_url: string;
-  sort_order: number;
-}
-
-export interface Bundle {
-  id: string;
-  name: string;
-  description: string | null;
-  discount_value: number;
-  image_url: string | null;
-  is_active: boolean;
-  products?: Product[];
-}
-
-export interface Order {
-  id: string;
-  order_number: string;
-  user_id: string | null;
-  email: string;
+export interface VolunteerApplication {
   full_name: string;
-  phone: string;
-  shipping_address: Record<string, unknown> | null;
-  subtotal: number;
-  discount: number;
-  total: number;
-  payment_status: 'pending' | 'paid' | 'failed' | 'refunded';
-  fulfillment_status: 'unfulfilled' | 'processing' | 'shipped' | 'delivered';
-  razorpay_order_id: string | null;
-  razorpay_payment_id: string | null;
-  tracking_number: string | null;
-  coupon_code: string | null;
-  created_at: string;
-  updated_at: string;
-  items?: OrderItem[];
-}
-
-export interface OrderItem {
-  id: string;
-  order_id: string;
-  product_id: string;
-  batch_id: string | null;
-  quantity: number;
-  unit_price: number;
-  product?: Product;
-  batch?: WorkshopBatch;
-}
-
-export interface Review {
-  id: string;
-  product_id: string;
-  user_id: string;
-  rating: number;
-  comment: string | null;
-  created_at: string;
-  profile?: Profile;
-}
-
-export interface Coupon {
-  id: string;
-  code: string;
-  discount_type: 'percentage' | 'fixed';
-  discount_value: number;
-  min_order_value: number;
-  max_uses: number;
-  used_count: number;
-  is_active: boolean;
-  expires_at: string | null;
-}
-
-export interface Subscriber {
-  id: string;
   email: string;
-  created_at: string;
+  phone: string;
+  college: string;
+  year_of_study: string;
+  preferred_role: string;
+  reason: string;
+  resume_url: string | null;
 }
 
-export interface WishlistItem {
-  id: string;
-  user_id: string;
-  product_id: string;
-  created_at: string;
-  product?: Product;
-}
-
-export interface CartItem {
-  product: Product;
-  quantity: number;
-  batch?: WorkshopBatch;
+export interface MentorApplication {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  country?: string;
+  city?: string;
+  current_company?: string;
+  current_position: string;
+  expertise: string;
+  years_experience: string;
+  linkedin_url?: string;
+  portfolio_url?: string;
+  mentoring_categories: string[];
+  availability: string;
+  languages?: string;
+  short_bio?: string;
+  motivation: string;
+  cv_url: string | null;
 }

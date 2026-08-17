@@ -4,11 +4,11 @@ export function generateBotResponse(message: string): string {
   const rules = [
     {
       keywords: ['hi', 'hello', 'hey', 'greetings', 'morning', 'afternoon'],
-      response: "👋 Welcome to Plug-in! How can I help you with your drone engineering journey today?"
+      response: "👋 Welcome to PluginScience! How can I help you with your drone engineering journey today?"
     },
     {
       keywords: ['workshop', 'course', 'learn', 'bootcamp', 'training', 'classes', 'education', 'teach'],
-      response: "We offer hands-on workshops in **Aeromodelling**, **Robotics**, **Data Science**, and **Electronics**. Our bootcamps teach you everything from basic quadcopter assembly to advanced autonomous flight software. Check out the 'Workshops' section in the navigation menu to enroll!"
+      response: "We offer hands-on workshops in **Aeromodelling**, **Robotics**, **Data Science**, and **Electronics**. Our bootcamps teach you everything from basic quadcopter assembly to advanced autonomous flight software. Check out the 'Workshops' section in the navigation menu to learn more!"
     },
     {
       keywords: ['aeromodelling', 'aero', 'plane', 'fixed wing'],
@@ -20,39 +20,35 @@ export function generateBotResponse(message: string): string {
     },
     {
       keywords: ['store', 'shop', 'buy', 'purchase', 'kit', 'component', 'hardware', 'merchandise', 'motor', 'esc', 'battery', 'propeller'],
-      response: "Our store has everything a builder needs! We offer complete **DIY Drone Kits** (perfect for beginners), individual **Hardware Components** (motors, ESCs, flight controllers), and official Plug-in Merchandise. Head over to the 'Store' tab to browse."
+      response: "We offer **DIY Drone Kits**, individual **Hardware Components** (motors, ESCs, flight controllers), and **Software Tools**. Browse our catalogue from the 'Workshops' dropdown in the navigation. For pricing and availability, feel free to reach out via the 'Contact' page!"
     },
     {
-      keywords: ['shipping', 'delivery', 'track', 'arrive'],
-      response: "We ship our drone kits and components worldwide! Domestic shipping usually takes 3-5 business days. You can track your order from your Account Dashboard after purchase."
-    },
-    {
-      keywords: ['return', 'refund', 'warranty', 'broken'],
-      response: "We have a 14-day return policy for unused components in their original packaging. Since drone parts can be easily damaged during flight, we don't offer returns on flown hardware, but our flight controllers come with a **6-month manufacturer warranty**."
-    },
-    {
-      keywords: ['about', 'who are you', 'company', 'mission', 'plug-in', 'plug in'],
-      response: "Plug-in is an advanced drone engineering platform. Our mission is to empower the next generation of engineers by providing flight-tested hardware, expert-led workshops, and autonomous drone technology for builders who want to engineer, code, and fly."
+      keywords: ['about', 'who are you', 'company', 'mission', 'plug-in', 'plug in', 'pluginscience'],
+      response: "PluginScience is an advanced drone engineering platform. Our mission is to empower the next generation of engineers by providing expert-led workshops and drone technology resources for builders who want to engineer, code, and fly."
     },
     {
       keywords: ['contact', 'support', 'help', 'email', 'phone', 'reach', 'address'],
-      response: "You can reach our support team directly through the 'Contact' page, or email us at **support@plugin-drones.com**. We're always happy to help with troubleshooting your build or answering workshop questions!"
+      response: "You can reach our support team directly through the 'Contact' page. We're always happy to help with questions about workshops, hardware, or anything else!"
     },
     {
       keywords: ['community', 'event', 'competition', 'gallery', 'hackathon'],
-      response: "We have an active community of drone builders! We host regular flight competitions, hackathons, and local meetups. Check out the 'Community' tab to see our upcoming events and the gallery of student builds."
+      response: "We have an active community of drone builders! We host regular flight competitions, hackathons, and local meetups. Visit the 'Community' section for upcoming events and the gallery of student builds."
     },
     {
-      keywords: ['dashboard', 'account', 'login', 'signup', 'register', 'enroll'],
-      response: "You can manage your workshop enrollments, track your hardware orders, and access course materials through your **Student Dashboard**. Just click the Graduation Cap icon in the top right to log in or sign up."
+      keywords: ['volunteer', 'volunteering'],
+      response: "We welcome volunteers to support our workshops and events! Visit the **Volunteer** page in the navigation to submit your application."
     },
     {
-      keywords: ['cart', 'checkout', 'pay', 'payment', 'razorpay'],
-      response: "You can view your selected kits and workshops in your cart by clicking the Book icon in the top right. We process all payments securely via Razorpay."
+      keywords: ['mentor', 'mentoring', 'advisor', 'apply'],
+      response: "We're always looking for experienced professionals to mentor our students. Visit the **Apply as Mentor** page to submit your application. We review applications on a rolling basis."
     },
     {
       keywords: ['drone', 'quadcopter', 'fpv', 'uav'],
-      response: "Whether you want to build a high-speed FPV quadcopter or a stable autonomous UAV, we have the hardware and the educational resources to make it happen. Are you looking to buy a kit or join a workshop?"
+      response: "Whether you want to build a high-speed FPV quadcopter or a stable autonomous UAV, we have the educational resources and hardware catalogue to help. Are you looking for a workshop or browsing our catalogue?"
+    },
+    {
+      keywords: ['price', 'cost', 'enquire', 'quote'],
+      response: "For pricing information, browse our catalogue or visit the Contact page to reach out directly. We're happy to provide custom quotes for bulk orders or workshop group bookings."
     }
   ];
 
@@ -64,5 +60,5 @@ export function generateBotResponse(message: string): string {
   }
 
   // Fallback
-  return "I'm sorry, I couldn't find the exact answer to your question. As an AI assistant for Plug-in, I can help you find workshops, buy drone hardware, or navigate our platform. Could you try rephrasing your question or visit our Contact page for direct human support?";
+  return "I'm sorry, I couldn't find the exact answer to your question. As an AI assistant for PluginScience, I can help you find workshops, browse our catalogue, or navigate our platform. Could you try rephrasing your question or visit our Contact page for direct support?";
 }

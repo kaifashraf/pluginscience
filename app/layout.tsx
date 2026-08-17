@@ -2,10 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import dynamic from 'next/dynamic';
 import { ToastContainer } from '@/components/ui/Toast';
 
-const CartDrawer = dynamic(() => import('@/components/cart/CartDrawer'), { ssr: false });
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from 'next/font/google';
 
 const cormorant = Cormorant_Garamond({
@@ -60,14 +58,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark ${cormorant.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="preload" as="image" href="/hero/frames-lowres/frame_001.webp" fetchPriority="high" />
+        <link rel="icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/favicon.svg`} type="image/svg+xml" />
+        <link rel="preload" as="image" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/frames-lowres/frame_001.webp`} fetchPriority="high" />
       </head>
       <body className="bg-plugin-light text-plugin-text font-sans antialiased">
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
-        <CartDrawer />
         <ToastContainer />
       </body>
     </html>

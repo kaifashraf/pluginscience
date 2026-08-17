@@ -1,12 +1,10 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronDown, ShoppingCart, Calendar, MapPin, Zap } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import { formatPrice, getSeatsRemaining } from '@/lib/utils';
-import type { Product, WorkshopBatch } from '@/lib/types';
-import { useCartStore } from '@/lib/store';
-import { useState } from 'react';
+import { X, Zap, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { formatPrice } from '@/lib/utils';
+import type { Product } from '@/lib/types';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -15,26 +13,14 @@ interface QuickViewModalProps {
 }
 
 export default function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps) {
-  const { addItem } = useCartStore();
-  const [selectedBatch, setSelectedBatch] = useState<WorkshopBatch | null>(null);
-  const [expandedSpec, setExpandedSpec] = useState<string | null>(null);
-
   if (!product) return null;
 
   const isWorkshop = product.is_workshop;
-  const batches = product.batches || [];
   const specs = product.specs as Record<string, unknown>;
   const effectivePrice = product.sale_price ?? product.price;
   const hasDiscount = product.sale_price !== null && product.sale_price < product.price;
-  const activeBatch = selectedBatch || batches[0] || null;
-  const seatsLeft = activeBatch
-    ? getSeatsRemaining(activeBatch.total_seats, activeBatch.booked_seats)
-    : null;
-
-  const handleAddToCart = () => {
-    addItem(product, 1, activeBatch || undefined);
-    onClose();
-  };
+  const categorySlug = product.category?.slug || 'hardware';
+  const detailHref = `/products/${categorySlug}/${product.slug}`;
 
   return (
     <AnimatePresence>
@@ -55,16 +41,16 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl md:max-h-[85vh] bg-plugin-bg-secondary border border-plugin-cyan/[0.12] rounded-plugin shadow-2xl z-[81] flex flex-col overflow-hidden"
+            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl md:max-h-[85vh] bg-plugin-light border border-plugin-border rounded-lg shadow-2xl z-[81] flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-plugin-cyan/[0.08]">
-              <span className="hud-label text-[10px]">
-                QUICK VIEW // {isWorkshop ? 'WORKSHOP' : 'HARDWARE'}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-plugin-border">
+              <span className="text-[10px] font-mono font-bold text-plugin-text-muted uppercase tracking-widest">
+                QUICK VIEW // {isWorkshop ? 'WORKSHOP' : product.category?.name?.toUpperCase() || 'PRODUCT'}
               </span>
               <button
                 onClick={onClose}
-                className="p-1 text-plugin-text-secondary hover:text-plugin-cyan transition-colors"
+                className="p-1 text-plugin-text-muted hover:text-plugin-dark transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -74,7 +60,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
             <div className="flex-1 overflow-y-auto p-6">
               <div className="flex flex-col md:flex-row gap-6">
                 {/* Image */}
-                <div className="w-full md:w-1/2 aspect-square bg-gradient-to-br from-plugin-surface to-plugin-bg rounded-plugin flex items-center justify-center overflow-hidden relative">
+                <div className="w-full md:w-1/2 aspect-square bg-plugin-surface rounded-lg flex items-center justify-center overflow-hidden relative border border-plugin-border">
                   {product.images && product.images.length > 0 ? (
                     <img
                       src={product.images[0].image_url}
@@ -82,11 +68,11 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <Zap className="w-16 h-16 text-plugin-cyan/20" />
+                    <Zap className="w-16 h-16 text-plugin-border" />
                   )}
 
                   {hasDiscount && (
-                    <div className="absolute top-3 right-3 px-2 py-1 bg-plugin-danger/20 text-plugin-danger text-[10px] font-mono font-bold uppercase tracking-wider rounded-plugin border border-plugin-danger/30">
+                    <div className="absolute top-3 right-3 px-2 py-1 bg-plugin-dark text-[10px] font-mono font-bold uppercase tracking-wider text-plugin-light">
                       {Math.round(((product.price - effectivePrice) / product.price) * 100)}% OFF
                     </div>
                   )}
@@ -95,85 +81,39 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                 {/* Details */}
                 <div className="w-full md:w-1/2 space-y-4">
                   <div>
-                    <h2 className="font-display text-xl font-bold text-plugin-text tracking-wider">
+                    <h2 className="font-display text-xl font-bold text-plugin-dark tracking-wider">
                       {product.title}
                     </h2>
-                    <p className="text-sm text-plugin-text-secondary leading-relaxed mt-2 line-clamp-3">
+                    <p className="text-sm text-plugin-text-muted leading-relaxed mt-2 line-clamp-3">
                       {product.description}
                     </p>
                   </div>
 
                   {/* Price */}
                   <div className="flex items-baseline gap-3">
-                    <span className="text-2xl font-display font-bold text-plugin-cyan">
+                    <span className="text-2xl font-display font-bold text-plugin-dark">
                       {formatPrice(effectivePrice)}
                     </span>
                     {hasDiscount && (
-                      <span className="text-sm text-plugin-text-secondary/50 line-through font-mono">
+                      <span className="text-sm text-plugin-text-muted line-through font-mono">
                         {formatPrice(product.price)}
                       </span>
                     )}
                   </div>
 
-                  {/* Workshop batch selector */}
-                  {isWorkshop && batches.length > 0 && (
-                    <div className="space-y-2">
-                      <span className="text-label uppercase tracking-[0.15em] text-plugin-text-secondary font-mono text-xs">
-                        Select Batch
-                      </span>
-                      <div className="space-y-2">
-                        {batches.map((batch) => {
-                          const batchSeats = getSeatsRemaining(batch.total_seats, batch.booked_seats);
-                          const isSelected = activeBatch?.id === batch.id;
-                          return (
-                            <button
-                              key={batch.id}
-                              onClick={() => setSelectedBatch(batch)}
-                              className={`w-full p-3 rounded-plugin border text-left transition-all duration-200 ${
-                                isSelected
-                                  ? 'border-plugin-cyan/40 bg-plugin-cyan/5'
-                                  : 'border-plugin-cyan/[0.12] hover:border-plugin-cyan/20'
-                              }`}
-                            >
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                  <Calendar className="w-3.5 h-3.5 text-plugin-cyan" />
-                                  <span className="text-sm text-plugin-text font-mono">
-                                    {new Date(batch.batch_date).toLocaleDateString('en-IN', {
-                                      day: 'numeric', month: 'short', year: 'numeric',
-                                    })}
-                                  </span>
-                                </div>
-                                <span className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
-                                  batchSeats <= 5 ? 'text-plugin-danger' : 'text-plugin-success'
-                                }`}>
-                                  {batchSeats <= 0 ? 'FULL' : `${batchSeats} SEATS`}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2 mt-1">
-                                <MapPin className="w-3 h-3 text-plugin-text-secondary" />
-                                <span className="text-xs text-plugin-text-secondary">{batch.location}</span>
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
                   {/* Key Specs */}
                   {specs && Object.keys(specs).length > 0 && (
                     <div className="space-y-1">
-                      <span className="text-label uppercase tracking-[0.15em] text-plugin-text-secondary font-mono text-xs">
+                      <span className="text-[10px] uppercase tracking-widest text-plugin-text-muted font-mono font-bold">
                         Specifications
                       </span>
                       <div className="space-y-1">
                         {Object.entries(specs).slice(0, 4).map(([key, value]) => (
-                          <div key={key} className="flex justify-between py-1.5 border-b border-plugin-cyan/[0.04]">
-                            <span className="text-xs text-plugin-text-secondary font-mono uppercase tracking-wider">
+                          <div key={key} className="flex justify-between py-1.5 border-b border-plugin-border/50">
+                            <span className="text-xs text-plugin-text-muted font-mono uppercase tracking-wider">
                               {key.replace(/_/g, ' ')}
                             </span>
-                            <span className="text-xs text-plugin-text font-mono">
+                            <span className="text-xs text-plugin-dark font-mono">
                               {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                             </span>
                           </div>
@@ -186,16 +126,22 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
             </div>
 
             {/* Footer */}
-            <div className="border-t border-plugin-cyan/[0.08] px-6 py-4 flex items-center gap-3">
-              <Button
-                className="flex-1 font-display tracking-wider"
-                size="lg"
-                onClick={handleAddToCart}
-                disabled={isWorkshop && seatsLeft !== null && seatsLeft <= 0}
+            <div className="border-t border-plugin-border px-6 py-4 flex items-center gap-3">
+              <Link
+                href={detailHref}
+                onClick={onClose}
+                className="flex-1 py-3 bg-plugin-dark text-plugin-light text-sm font-mono font-bold uppercase tracking-widest hover:bg-theme-drone transition-colors flex items-center justify-center gap-2"
               >
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                {isWorkshop ? 'Reserve Seat' : 'Add to Cart'}
-              </Button>
+                View Full Details
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/contact"
+                onClick={onClose}
+                className="py-3 px-6 border border-plugin-border text-sm font-mono font-bold uppercase tracking-widest text-plugin-dark hover:bg-plugin-surface transition-colors"
+              >
+                Enquire
+              </Link>
             </div>
           </motion.div>
         </>
