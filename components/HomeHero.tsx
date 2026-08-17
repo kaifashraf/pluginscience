@@ -20,7 +20,7 @@ export default function HomeHero() {
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-      video.src = '/hero/workshop.mp4';
+      video.src = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/workshop.mp4`;
       video.load();
       video.play().catch(() => {});
     }
