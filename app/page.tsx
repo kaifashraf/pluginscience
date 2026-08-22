@@ -214,18 +214,18 @@ export default function Home() {
                 bg: 'bg-[#F5F3EF]',
               },
             ].map((tile, i) => (
-              <div key={i} className={`${tile.bg} ${tile.dark ? 'hover:bg-[#F5F3EF]' : 'hover:bg-[#0A0A0A]'} transition-colors duration-500 p-14 flex flex-col justify-between min-h-[400px] group cursor-pointer`}>
+              <div key={i} className={`${tile.bg} p-14 flex flex-col justify-between min-h-[400px] group cursor-pointer`}>
                 <div>
-                  <h3 className={`font-display font-medium mb-6 leading-tight ${tile.dark ? 'text-white group-hover:text-[#0A0A0A]' : 'text-[#0A0A0A] group-hover:text-white'} transition-colors duration-500`}
+                  <h3 className={`font-display font-medium mb-6 leading-tight ${tile.dark ? 'text-white' : 'text-[#0A0A0A]'}`}
                       style={{ fontSize: 'clamp(1.8rem, 2.8vw, 2.5rem)' }}>
                     {tile.title}
                   </h3>
-                  <p className={`font-sans font-light leading-relaxed text-lg ${tile.dark ? 'text-white/60 group-hover:text-[#666]' : 'text-[#666] group-hover:text-white/60'} transition-colors duration-500`}>
+                  <p className={`font-sans font-light leading-relaxed text-lg ${tile.dark ? 'text-white/60' : 'text-[#666]'}`}>
                     {tile.desc}
                   </p>
                 </div>
                 <Link href={tile.href}>
-                  <div className={`flex items-center gap-3 text-sm font-sans font-medium group/link mt-12 ${tile.dark ? 'text-white/70 group-hover:text-[#0A0A0A]/60 hover:!text-[#0A0A0A]' : 'text-[#0A0A0A]/60 group-hover:text-white/70 hover:!text-white'} transition-colors duration-500`}>
+                  <div className={`flex items-center gap-3 text-sm font-sans font-medium group/link mt-12 ${tile.dark ? 'text-white/70 hover:text-white' : 'text-[#0A0A0A]/60 hover:text-[#0A0A0A]'} transition-colors`}>
                     {tile.cta}
                     <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                   </div>
