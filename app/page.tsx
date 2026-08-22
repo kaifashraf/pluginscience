@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import HomeHero from '@/components/HomeHero';
-import HomeDisciplinesCarousel from '@/components/HomeDisciplinesCarousel';
-
 
 
 const disciplines = [
