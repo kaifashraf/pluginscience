@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
 
@@ -43,6 +43,66 @@ const disciplines = [
   },
 ];
 
+function MobileMarqueeCard({ d, index }: { d: any, index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsActive(entry.isIntersecting);
+      },
+      {
+        root: null,
+        // The card becomes active when it enters the middle 40% of the viewport width
+        rootMargin: '0px -30% 0px -30%',
+        threshold: 0,
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Link href={d.href} className="shrink-0 w-[78vw]">
+      <div
+        ref={ref}
+        className={`p-8 flex flex-col justify-between min-h-[380px] group cursor-pointer transition-all duration-700 h-full whitespace-normal border ${
+          isActive
+            ? 'bg-white text-black border-white shadow-xl scale-105 z-10 relative'
+            : 'bg-white/[0.04] text-white border-white/10 hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-1'
+        }`}
+      >
+        <div>
+          <div className="flex items-center gap-4 mb-4">
+            <span className={`text-xs font-mono transition-colors duration-700 ${isActive ? 'text-black/40' : 'text-white/20'}`}>
+              {d.num}
+            </span>
+            <div className={`h-[1px] w-8 ${d.bar}`} />
+          </div>
+          <h3 className="font-display font-medium mb-2 text-2xl leading-tight">
+            {d.title}
+          </h3>
+          <p className={`text-xs font-mono uppercase tracking-widest mb-5 transition-colors duration-700 ${isActive ? 'text-black/50' : 'text-white/30'}`}>
+            {d.subtitle}
+          </p>
+          <p className={`font-sans font-light leading-relaxed text-sm line-clamp-3 transition-colors duration-700 ${isActive ? 'text-black/70' : 'text-white/50'}`}>
+            {d.desc}
+          </p>
+        </div>
+        <div className="flex items-center justify-end mt-6">
+          <div className={`w-9 h-9 rounded-full border flex items-center justify-center transition-colors duration-700 ${isActive ? 'border-black/10' : 'border-white/10 group-hover:border-white/40'}`}>
+            <ArrowUpRight className={`w-3.5 h-3.5 transition-colors duration-700 ${isActive ? 'text-black/40' : 'text-white/30 group-hover:text-white'}`} />
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export default function HomeDisciplinesCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -56,33 +116,12 @@ export default function HomeDisciplinesCarousel() {
   return (
     <>
       {/* ── Mobile: Continuous Marquee ── */}
-      <div className="md:hidden relative flex overflow-hidden w-full pb-4 bg-transparent group/marquee">
+      <div className="md:hidden relative flex overflow-hidden w-full pb-8 pt-4 bg-transparent group/marquee">
         {/* We render two identical lists side by side to create the infinite scroll effect */}
         {[...Array(2)].map((_, listIndex) => (
-          <div key={listIndex} className="flex gap-4 animate-marquee whitespace-nowrap pl-4 group-hover/marquee:[animation-play-state:paused]">
+          <div key={listIndex} className="flex gap-4 animate-marquee whitespace-nowrap pl-4 group-hover/marquee:[animation-play-state:paused] items-center">
             {disciplines.map((d, i) => (
-              <Link href={d.href} key={`${listIndex}-${i}`} className="shrink-0 w-[78vw]">
-                <div className="bg-white/[0.04] border border-white/10 p-8 flex flex-col justify-between min-h-[380px] group cursor-pointer hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 h-full whitespace-normal">
-                  <div>
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="text-white/20 text-xs font-mono">{d.num}</span>
-                      <div className={`h-[1px] w-8 ${d.bar}`} />
-                    </div>
-                    <h3 className={`font-display font-medium text-white mb-2 text-2xl leading-tight`}>
-                      {d.title}
-                    </h3>
-                    <p className="text-white/30 text-xs font-mono uppercase tracking-widest mb-5">{d.subtitle}</p>
-                    <p className="text-white/50 font-sans font-light leading-relaxed text-sm line-clamp-3">
-                      {d.desc}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-end mt-6">
-                    <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
-                      <ArrowUpRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white transition-colors" />
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <MobileMarqueeCard key={`${listIndex}-${i}`} d={d} index={i} />
             ))}
           </div>
         ))}
