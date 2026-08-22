@@ -46,7 +46,7 @@ export default function MentorsHero() {
               transition={{ delay: 0.2 }}
               className="text-lg md:text-xl text-gray-600 mb-10 font-light leading-relaxed max-w-xl"
             >
-              Behind every great workshop is a mentor who believes that learning should be practical, engaging, and inspiring. At Plug-in, our mentors come from leading institutions and diverse professional backgrounds, helping students transform curiosity into confidence through real-world experiences.
+              Behind every great workshop is a mentor who believes that learning should be practical, engaging, and inspiring. At PluginScience, our mentors come from leading institutions and diverse professional backgrounds, helping students transform curiosity into confidence through real-world experiences.
             </motion.p>
 
             <motion.div 

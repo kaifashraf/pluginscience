@@ -31,36 +31,46 @@ const staggerItem = {
 
 export default function HomeStory() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile(); // Check on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <div ref={containerRef} className="relative bg-white overflow-hidden text-[#11161F]">
       
-      {/* SECTION 1: Why Plug-in Exists */}
+      {/* SECTION 1: Why PluginScience Exists */}
       <section className="py-24 md:py-32 relative bg-[#0B1121]">
         <div className="absolute inset-0 bg-gradient-to-b from-[#00C3FF]/5 to-[#0B1121] pointer-events-none" />
         <div className="container-plugin max-w-7xl mx-auto relative z-10">
           
           {/* Background Floating Line Illustrations */}
-          <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-            {[
-              { icon: Rocket, top: '10%', left: '15%', delay: 0 },
-              { icon: Microscope, top: '40%', left: '5%', delay: 2 },
-              { icon: Atom, top: '70%', left: '10%', delay: 1 },
-              { icon: GraduationCap, top: '15%', right: '15%', delay: 3 },
-              { icon: Notebook, top: '50%', right: '8%', delay: 0.5 },
-              { icon: Bot, top: '80%', right: '20%', delay: 2.5 },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                className="absolute text-white/5"
-                style={{ top: item.top, left: item.left, right: item.right }}
-                animate={{ y: [0, -30, 0], rotate: [0, 5, -5, 0], x: [0, 10, -10, 0] }}
-                transition={{ duration: 15 + i * 2, repeat: Infinity, delay: item.delay, ease: 'linear' }}
-              >
-                <item.icon className="w-16 h-16 md:w-24 md:h-24 stroke-[1px]" />
-              </motion.div>
-            ))}
-          </div>
+          {!isMobile && (
+            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+              {[
+                { icon: Rocket, top: '10%', left: '15%', delay: 0 },
+                { icon: Microscope, top: '40%', left: '5%', delay: 2 },
+                { icon: Atom, top: '70%', left: '10%', delay: 1 },
+                { icon: GraduationCap, top: '15%', right: '15%', delay: 3 },
+                { icon: Notebook, top: '50%', right: '8%', delay: 0.5 },
+                { icon: Bot, top: '80%', right: '20%', delay: 2.5 },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute text-white/5"
+                  style={{ top: item.top, left: item.left, right: item.right }}
+                  animate={{ y: [0, -30, 0], rotate: [0, 5, -5, 0], x: [0, 10, -10, 0] }}
+                  transition={{ duration: 15 + i * 2, repeat: Infinity, delay: item.delay, ease: 'linear' }}
+                >
+                  <item.icon className="w-16 h-16 md:w-24 md:h-24 stroke-[1px]" />
+                </motion.div>
+              ))}
+            </div>
+          )}
 
           <div className="relative z-10 max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start mb-24">
@@ -306,36 +316,38 @@ export default function HomeStory() {
         </div>
 
         {/* Floating Educational Icons */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none text-white/20">
-          {[
-            { icon: <BookOpen size={48} />, top: '10%', left: '10%', delay: 0 },
-            { icon: <FlaskConical size={48} />, top: '20%', left: '80%', delay: 1 },
-            { icon: <Bot size={48} />, top: '70%', left: '15%', delay: 2 },
-            { icon: <Rocket size={48} />, top: '80%', left: '85%', delay: 0.5 },
-            { icon: <Compass size={48} />, top: '40%', left: '90%', delay: 1.5 },
-            { icon: <Sparkles size={48} />, top: '60%', left: '5%', delay: 2.5 },
-            { icon: <Atom size={48} />, top: '15%', left: '50%', delay: 0.8 },
-            { icon: <GraduationCap size={48} />, top: '85%', left: '50%', delay: 1.2 },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-4xl opacity-40"
-              style={{ top: item.top, left: item.left }}
-              animate={{
-                y: [0, -30, 0],
-                rotate: [0, 10, -10, 0],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                delay: item.delay,
-                ease: 'easeInOut'
-              }}
-            >
-              {item.icon}
-            </motion.div>
-          ))}
-        </div>
+        {!isMobile && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none text-white/20">
+            {[
+              { icon: <BookOpen size={48} />, top: '10%', left: '10%', delay: 0 },
+              { icon: <FlaskConical size={48} />, top: '20%', left: '80%', delay: 1 },
+              { icon: <Bot size={48} />, top: '70%', left: '15%', delay: 2 },
+              { icon: <Rocket size={48} />, top: '80%', left: '85%', delay: 0.5 },
+              { icon: <Compass size={48} />, top: '40%', left: '90%', delay: 1.5 },
+              { icon: <Sparkles size={48} />, top: '60%', left: '5%', delay: 2.5 },
+              { icon: <Atom size={48} />, top: '15%', left: '50%', delay: 0.8 },
+              { icon: <GraduationCap size={48} />, top: '85%', left: '50%', delay: 1.2 },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-4xl opacity-40"
+                style={{ top: item.top, left: item.left }}
+                animate={{
+                  y: [0, -30, 0],
+                  rotate: [0, 10, -10, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  delay: item.delay,
+                  ease: 'easeInOut'
+                }}
+              >
+                {item.icon}
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         <div className="container-plugin max-w-4xl mx-auto relative z-10 flex flex-col items-center">
           
@@ -368,7 +380,7 @@ export default function HomeStory() {
             className="w-full max-w-2xl mx-auto text-left"
           >
             <motion.p variants={staggerItem} className="text-lg md:text-xl text-gray-300 font-sans leading-relaxed mb-10">
-              Every great achievement begins with a question. At Plug-in, we create hands-on learning experiences that help students explore new ideas, develop practical skills, and gain the confidence to shape their future.
+              Every great achievement begins with a question. At PluginScience, we create hands-on learning experiences that help students explore new ideas, develop practical skills, and gain the confidence to shape their future.
             </motion.p>
             
             <motion.div variants={staggerItem} className="w-full h-px bg-gradient-to-r from-gray-800 via-gray-600 to-transparent mb-10" />

@@ -42,7 +42,7 @@ export default function WhyLearn() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-100 mb-6"
           >
-            <span className="text-sm font-bold text-[#F97316] tracking-widest uppercase">The Plug-in Difference</span>
+            <span className="text-sm font-bold text-[#F97316] tracking-widest uppercase">The PluginScience Difference</span>
           </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}

@@ -17,7 +17,7 @@ export default function ContactInfo() {
       icon: <Phone className="w-8 h-8 text-green-500" />,
       title: "Phone",
       detail: "+91 92636 61030",
-      description: "Monday – Saturday\n9:00 AM – 6:00 PM (IST)",
+      description: "Monday - Saturday\n9:00 AM - 6:00 PM (IST)",
       bgAccent: "bg-green-50",
       borderAccent: "group-hover:border-green-200"
     },
@@ -25,7 +25,7 @@ export default function ContactInfo() {
       icon: <School className="w-8 h-8 text-purple-500" />,
       title: "School Partnerships",
       detail: "Partner with Us",
-      description: "Partner with Plug-in to organize engaging workshops and learning experiences for your students.",
+      description: "Partner with PluginScience to organize engaging workshops and learning experiences for your students.",
       bgAccent: "bg-purple-50",
       borderAccent: "group-hover:border-purple-200"
     }

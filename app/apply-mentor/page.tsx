@@ -8,7 +8,7 @@ import MentorFAQ from '@/components/apply-mentor/MentorFAQ';
 import ApplyMentorCTA from '@/components/apply-mentor/ApplyMentorCTA';
 
 export const metadata = {
-  title: 'Apply as a Mentor | Plug-in',
+  title: 'Apply as a Mentor | PluginScience',
   description: 'Join our community of passionate mentors and start making an impact today. Earn income while shaping the next generation of engineers.',
 };
 

@@ -33,9 +33,9 @@ export default function Footer() {
           {/* Brand & Vision */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <Link href="/" className="inline-block mb-12">
-                <div className="text-4xl font-display font-bold tracking-tighter text-plugin-light">
-                  PLUGIN<span className="text-theme-drone">.</span>
+              <Link href="/" className="inline-block mb-12 group">
+                <div className="text-3xl font-display font-medium tracking-tight text-plugin-light">
+                  PluginScience<span className="text-theme-drone">.</span>
                 </div>
               </Link>
               <h3 className="text-2xl font-light leading-snug max-w-md text-plugin-text-inverse mb-8">

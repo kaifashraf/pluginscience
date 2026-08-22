@@ -110,7 +110,7 @@ export default function ApplicationForm() {
 
       if (insertError) throw new Error('Submission failed: ' + insertError.message);
 
-      // Sync to Google Sheets (fire-and-forget — don't block on failure)
+      // Sync to Google Sheets (fire-and-forget, don't block on failure)
       try {
         await fetch('https://script.google.com/macros/s/AKfycbwE6z3NeoQ3pw5yiGsHRxLvANMYngOLgNxxkqv_KVSVLetmMlGtP7083QuJ7ftfKHpv/exec', {
           method: 'POST',
@@ -134,7 +134,7 @@ export default function ApplicationForm() {
           }),
         });
       } catch {
-        // Sheet sync failure is non-critical — Supabase record is already saved
+        // Sheet sync failure is non-critical, Supabase record is already saved
         console.warn('Google Sheets sync failed (non-critical)');
       }
 
@@ -327,7 +327,7 @@ export default function ApplicationForm() {
                 {cvFile ? (
                   <div className="text-center">
                     <p className="text-gray-800 font-medium">{cvFile.name}</p>
-                    <p className="text-sm text-gray-500 mt-1">{(cvFile.size / 1024 / 1024).toFixed(2)} MB — Click to change</p>
+                    <p className="text-sm text-gray-500 mt-1">{(cvFile.size / 1024 / 1024).toFixed(2)} MB, Click to change</p>
                   </div>
                 ) : (
                   <div className="text-center">

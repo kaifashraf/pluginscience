@@ -33,10 +33,10 @@ export default function MentorJourney() {
       title: "Inspire Young Minds",
       description: "Watch your students transform curiosity into confidence as they build real projects.",
       icon: <Lightbulb className="w-5 h-5 text-white" />,
-      color: "bg-[#F97316]" // Plug-in Orange
+      color: "bg-[#F97316]" // PluginScience Orange
     },
     {
-      title: "Become a Plug-in Ambassador",
+      title: "Become a PluginScience Ambassador",
       description: "Join our core team of educators and help shape the future of STEM learning globally.",
       icon: <Trophy className="w-5 h-5 text-white" />,
       color: "bg-amber-500"
@@ -52,7 +52,7 @@ export default function MentorJourney() {
             The Mentor Journey
           </h2>
           <p className="text-xl text-gray-500 font-light leading-relaxed max-w-2xl mx-auto">
-            From your first application to becoming a recognized ambassador, here is how you grow with Plug-in.
+            From your first application to becoming a recognized ambassador, here is how you grow with PluginScience.
           </p>
         </div>
 

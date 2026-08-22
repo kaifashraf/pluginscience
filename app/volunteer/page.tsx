@@ -31,12 +31,12 @@ const benefits = [
   {
     num: '04',
     title: 'Build Real Skills',
-    desc: 'From event coordination to hands-on workshop assistance — every role sharpens communication, leadership, and technical skills that matter.',
+    desc: 'From event coordination to hands-on workshop assistance, every role sharpens communication, leadership, and technical skills that matter.',
   },
   {
     num: '05',
     title: 'Priority Workshop Access',
-    desc: 'Volunteers get first access and discounted or complimentary seats at PluginScience workshops — learn while you contribute.',
+    desc: 'Volunteers get first access and discounted or complimentary seats at PluginScience workshops, learn while you contribute.',
   },
   {
     num: '06',

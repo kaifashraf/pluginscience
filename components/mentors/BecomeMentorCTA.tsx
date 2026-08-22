@@ -32,7 +32,7 @@ export default function BecomeMentorCTA() {
           </h2>
           
           <p className="text-lg md:text-xl text-gray-500 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-            Whether you're an educator, researcher, engineer, artist, entrepreneur, or industry professional, Plug-in welcomes passionate individuals who want to inspire the next generation through meaningful learning experiences.
+            Whether you're an educator, researcher, engineer, artist, entrepreneur, or industry professional, PluginScience welcomes passionate individuals who want to inspire the next generation through meaningful learning experiences.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

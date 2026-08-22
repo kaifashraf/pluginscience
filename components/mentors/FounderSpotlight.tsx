@@ -80,12 +80,12 @@ export default function FounderSpotlight() {
               Founder
             </p>
             <p className="text-gray-500 font-medium mb-8">
-              Postdoctoral Fellow — IIT Kanpur
+              Postdoctoral Fellow, IIT Kanpur
             </p>
 
             <h3 className="text-xl font-bold text-[#0B1121] mb-4">About</h3>
             <p className="text-lg text-gray-600 leading-relaxed mb-8 font-light">
-              Dr. Md. Gulam Sarwar is an aerospace researcher and educator dedicated to making STEM education practical, accessible, and inspiring for school students. Through Plug-in, he aims to bridge the gap between classroom learning and real-world innovation by creating hands-on workshops that encourage creativity, critical thinking, and problem-solving.
+              Dr. Md. Gulam Sarwar is an aerospace researcher and educator dedicated to making STEM education practical, accessible, and inspiring for school students. Through PluginScience, he aims to bridge the gap between classroom learning and real-world innovation by creating hands-on workshops that encourage creativity, critical thinking, and problem-solving.
             </p>
 
             <h3 className="text-xl font-bold text-[#0B1121] mb-4">Areas of Expertise</h3>

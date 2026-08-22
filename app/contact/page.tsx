@@ -58,8 +58,8 @@ export default function ContactPage() {
               +91 92636 61030
             </p>
             <p className="text-plugin-text-muted group-hover:text-plugin-text-inverse-muted text-sm leading-relaxed whitespace-pre-line">
-              Monday – Saturday
-              9:00 AM – 6:00 PM (IST)
+              Monday - Saturday
+              9:00 AM - 6:00 PM (IST)
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export default function ContactPage() {
               Partner with Us
             </p>
             <p className="text-plugin-text-muted group-hover:text-plugin-dark text-sm leading-relaxed">
-              Partner with Plug-in to organize engaging technology workshops and learning experiences for your students.
+              Partner with PluginScience to organize engaging technology workshops and learning experiences for your students.
             </p>
           </div>
 

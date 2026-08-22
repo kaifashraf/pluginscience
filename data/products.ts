@@ -113,7 +113,7 @@ export const PRODUCTS: Product[] = [
     sale_price: null,
     is_workshop: false,
     specs: {
-      range: '2cm - 400cm',
+      range: '2cm to 400cm',
       accuracy: '±3mm',
       operating_voltage: '5V DC',
       frequency: '40kHz',

@@ -19,11 +19,20 @@ export default function HomeHero() {
   // Defer video loading so the 2.7MB file doesn't compete with critical resources
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
+    if (!video) return;
+
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return; // Don't load video, keep poster
+
+    // Defer loading video to prioritize LCP image, especially on mobile
+    const timer = setTimeout(() => {
       video.src = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/workshop.mp4`;
       video.load();
       video.play().catch(() => {});
-    }
+    }, window.innerWidth < 768 ? 2000 : 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (

@@ -23,11 +23,26 @@ export default function HeroAntiGravityDrone({
   // Audio ref for background music
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Simply set the video loaded state natively
+  // Defer loading to improve LCP
   useEffect(() => {
-    if (videoRef.current && videoRef.current.readyState >= 1) {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.readyState >= 1) {
       setVideoLoaded(true);
     }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return; // don't load video if reduced motion
+
+    const timer = setTimeout(() => {
+      video.src = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/workshop.mp4`;
+      video.load();
+      // autoplay logic is handled by the video element once src is set if autoplay attribute is present, but we will call play() to be safe.
+      video.play().catch(() => {});
+    }, window.innerWidth < 768 ? 2000 : 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleVideoLoaded = () => {
@@ -116,12 +131,10 @@ export default function HeroAntiGravityDrone({
         {/* Video Element (replaces canvas) */}
         <video
           ref={videoRef}
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/workshop.mp4`}
           className="absolute inset-0 w-full h-full object-cover scale-[1.05] pointer-events-none select-none"
           muted
-          autoPlay
           playsInline
-          preload="auto"
+          preload="none"
           controlsList="nodownload nofullscreen noremoteplayback"
           disablePictureInPicture
           onContextMenu={(e) => e.preventDefault()}

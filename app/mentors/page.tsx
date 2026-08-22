@@ -7,8 +7,8 @@ import MentorJourney from '@/components/mentors/MentorJourney';
 import BecomeMentorCTA from '@/components/mentors/BecomeMentorCTA';
 
 export const metadata = {
-  title: 'Our Mentors | Plug-in',
-  description: 'Meet the industry experts, researchers, and engineers who are inspiring the next generation of innovators at Plug-in.',
+  title: 'Our Mentors | PluginScience',
+  description: 'Meet the industry experts, researchers, and engineers who are inspiring the next generation of innovators at PluginScience.',
 };
 
 export default function MentorsPage() {

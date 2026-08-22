@@ -155,18 +155,18 @@ export default function Header() {
           {mobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: '100vh' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden overflow-hidden bg-[#0A0A0A] border-t border-white/10"
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden overflow-y-auto bg-[#050505]/95 backdrop-blur-2xl border-t border-white/5 fixed top-[76px] left-0 right-0 bottom-0 z-40 pb-20"
             >
-              <nav className="flex flex-col p-8 gap-2">
+              <nav className="flex flex-col px-8 py-10 gap-1 max-w-sm mx-auto">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.label}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
+                    transition={{ delay: i * 0.05 + 0.1, duration: 0.4 }}
                   >
                     {link.dropdown ? (
                       <button
@@ -174,23 +174,19 @@ export default function Header() {
                           e.preventDefault();
                           setMobileDropdownOpen(mobileDropdownOpen === link.label ? null : link.label);
                         }}
-                        onDoubleClick={(e) => {
-                          e.preventDefault();
-                          setMobileDropdownOpen(null);
-                        }}
                         className={cn(
-                          "w-full text-left flex items-center justify-between py-4 text-4xl font-display font-light transition-colors border-white/5",
-                          mobileDropdownOpen === link.label ? "text-theme-drone" : "text-white hover:text-theme-drone"
+                          "w-full text-left flex items-center justify-between py-3.5 text-[28px] font-display font-medium tracking-tight transition-colors",
+                          mobileDropdownOpen === link.label ? "text-theme-drone" : "text-white/90 hover:text-white"
                         )}
                       >
                         {link.label}
-                        <ChevronDown className={cn("w-6 h-6 transition-transform duration-300", mobileDropdownOpen === link.label && "rotate-180")} />
+                        <ChevronDown className={cn("w-5 h-5 transition-transform duration-400 text-white/30", mobileDropdownOpen === link.label && "rotate-180 text-theme-drone")} />
                       </button>
                     ) : (
                       <Link
                         href={link.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block py-4 text-4xl font-display font-light text-white hover:text-theme-drone transition-colors border-white/5 border-b"
+                        className="block py-3.5 text-[28px] font-display font-medium tracking-tight text-white/90 hover:text-white transition-colors"
                       >
                         {link.label}
                       </Link>
@@ -203,15 +199,16 @@ export default function Header() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeOut' }}
                             className="overflow-hidden"
                           >
-                            <div className="flex flex-col gap-2 pl-6 pb-4 border-b border-white/5">
+                            <div className="flex flex-col gap-3 pl-4 pb-4 border-l border-white/10 ml-2 mt-2">
                               {link.dropdown.map((dropItem) => (
                                 <Link
                                   key={dropItem.label}
                                   href={dropItem.href}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className="py-2 text-xl font-display font-light text-white/60 hover:text-white transition-colors"
+                                  className="py-1.5 text-base font-sans font-light tracking-wide text-white/50 hover:text-white transition-colors"
                                 >
                                   {dropItem.label}
                                 </Link>
@@ -223,22 +220,28 @@ export default function Header() {
                     )}
                   </motion.div>
                 ))}
-                <div className="pt-8 flex gap-6 items-center">
+                
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="pt-10 mt-6 flex flex-col gap-5 border-t border-white/5"
+                >
                   <Link
                     href="/contact"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-sm font-sans font-medium text-white/60 hover:text-white transition-colors"
+                    className="inline-flex items-center text-xs font-mono uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors"
                   >
-                    Get in Touch →
+                    Get in Touch <span className="ml-2">→</span>
                   </Link>
                   <Link
                     href="/mentors"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-sm font-sans font-medium text-white/60 hover:text-white transition-colors"
+                    className="inline-flex items-center text-xs font-mono uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors"
                   >
-                    Apply as Mentor →
+                    Apply as Mentor <span className="ml-2">→</span>
                   </Link>
-                </div>
+                </motion.div>
               </nav>
             </motion.div>
           )}

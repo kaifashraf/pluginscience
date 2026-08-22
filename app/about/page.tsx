@@ -70,7 +70,7 @@ export default function AboutPage() {
             <motion.div {...fadeUp} transition={{ delay: 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
               <p className="text-[#666] font-sans font-light leading-relaxed text-lg mb-5">
                 Traditional classrooms are excellent at conveying concepts. But understanding
-                requires more than reading — it requires doing. PluginScience was founded to close that gap.
+                requires more than reading, it requires doing. PluginScience was founded to close that gap.
               </p>
               <p className="text-[#666] font-sans font-light leading-relaxed text-lg">
                 Through structured workshops in aerospace, robotics, electronics, AI, and data
@@ -95,7 +95,7 @@ export default function AboutPage() {
               {
                 num: '01',
                 title: 'Built by Real Engineers',
-                desc: 'Our curriculum is crafted by practicing aerospace researchers and software engineers — not theorists. Every module reflects what the industry actually demands.',
+                desc: 'Our curriculum is crafted by practicing aerospace researchers and software engineers, not theorists. Every module reflects what the industry actually demands.',
               },
               {
                 num: '02',
@@ -165,7 +165,7 @@ export default function AboutPage() {
                   PluginScience was founded by{' '}
                   <span className="text-[#0A0A0A] font-medium">Dr. Md Gulam Sarwar</span>, a researcher
                   specialising in space engineering and rocketry. He built PluginScience out of a deep conviction
-                  that the most talented young minds in India deserve access to real engineering — not
+                  that the most talented young minds in India deserve access to real engineering, not
                   just textbook theory.
                 </p>
                 <p>
@@ -178,7 +178,7 @@ export default function AboutPage() {
                   aerospace systems.
                 </p>
                 <p>
-                  His research — from drag reduction in aerospace bodies to intelligent autonomous systems —
+                  His research, from drag reduction in aerospace bodies to intelligent autonomous systems,
                   bridges the world of high-level academia and practical, scalable engineering education.
                 </p>
               </div>

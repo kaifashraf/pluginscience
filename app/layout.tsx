@@ -3,6 +3,9 @@ import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { ToastContainer } from '@/components/ui/Toast';
+import dynamic from 'next/dynamic';
+
+
 
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from 'next/font/google';
 
@@ -29,7 +32,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'PluginScience — Engineer. Code. Fly.',
+  title: 'PluginScience | Engineer. Code. Fly.',
   description:
     'PluginScience is an advanced drone engineering platform offering hands-on workshops, custom drone kits, hardware components, and autonomous flight software. Build, code, and fly precision aerial vehicles.',
   keywords: [
@@ -43,7 +46,7 @@ export const metadata: Metadata = {
     'PluginScience',
   ],
   openGraph: {
-    title: 'PluginScience — Engineer. Code. Fly.',
+    title: 'PluginScience | Engineer. Code. Fly.',
     description:
       'Advanced drone engineering platform. Workshops, kits, hardware, and autonomous flight technology.',
     type: 'website',
@@ -66,6 +69,7 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <ToastContainer />
+
       </body>
     </html>
   );

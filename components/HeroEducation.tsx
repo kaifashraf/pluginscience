@@ -18,7 +18,7 @@ export default function HeroEducation() {
             className="w-full lg:w-[45%] space-y-8"
           >
             <h1 className="font-display text-4xl sm:text-5xl lg:text-[54px] leading-[1.15] font-bold tracking-wide text-plugin-text">
-              Plug-in empowers schools and educators with practical Robotics, AI, Electronics, Coding, and Aeromodelling programs designed to build future-ready skills through hands-on learning.
+              PluginScience empowers schools and educators with practical Robotics, AI, Electronics, Coding, and Aeromodelling programs designed to build future-ready skills through hands-on learning.
             </h1>
 
             <div className="flex flex-col sm:flex-row items-start gap-4">
