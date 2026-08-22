@@ -43,36 +43,13 @@ const disciplines = [
   },
 ];
 
-function MobileMarqueeCard({ d, index }: { d: any, index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsActive(entry.isIntersecting);
-      },
-      {
-        root: null,
-        // The card becomes active when it enters the middle 40% of the viewport width
-        rootMargin: '0px -30% 0px -30%',
-        threshold: 0,
-      }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-    return () => observer.disconnect();
-  }, []);
-
+function MobileMarqueeCard({ d, index, isActive }: { d: any, index: number, isActive: boolean }) {
   return (
-    <Link href={d.href} className="shrink-0 w-[78vw]">
+    <Link href={d.href} className="shrink-0 w-[78vw] snap-center discipline-card" data-index={index}>
       <div
-        ref={ref}
         className={`p-8 flex flex-col justify-between min-h-[380px] group cursor-pointer transition-all duration-700 h-full whitespace-normal border ${
           isActive
-            ? 'bg-white text-black border-white shadow-xl scale-105 z-10 relative'
+            ? 'bg-white text-black border-white shadow-xl scale-[1.02] z-10 relative'
             : 'bg-white/[0.04] text-white border-white/10 hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-1'
         }`}
       >
@@ -105,26 +82,80 @@ function MobileMarqueeCard({ d, index }: { d: any, index: number }) {
 
 export default function HomeDisciplinesCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isTouching = useRef(false);
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = window.innerWidth * 0.78;
-      scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-    }
-  };
+  // Track the active card based on scroll position
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const children = el.querySelectorAll('.discipline-card');
+      const containerCenter = el.getBoundingClientRect().left + el.offsetWidth / 2;
+      
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
+      children.forEach((child) => {
+        const idx = Number(child.getAttribute('data-index'));
+        const rect = child.getBoundingClientRect();
+        const childCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(containerCenter - childCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = idx;
+        }
+      });
+
+      setActiveIndex(closestIndex);
+    };
+
+    el.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Auto-play timer
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current && !isTouching.current) {
+        const el = scrollRef.current;
+        const currentScroll = el.scrollLeft;
+        const cardWidth = window.innerWidth * 0.78 + 16; // width + gap
+        
+        // If we reach the end, scroll back to start
+        if (currentScroll + el.clientWidth >= el.scrollWidth - 10) {
+           el.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+           el.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        }
+      }
+    }, 4000); // 4 seconds per slide
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
-      {/* ── Mobile: Continuous Marquee ── */}
-      <div className="md:hidden relative flex overflow-hidden w-full pb-8 pt-4 bg-transparent group/marquee">
-        {/* We render two identical lists side by side to create the infinite scroll effect */}
-        {[...Array(2)].map((_, listIndex) => (
-          <div key={listIndex} className="flex gap-4 animate-marquee whitespace-nowrap pl-4 group-hover/marquee:[animation-play-state:paused] items-center">
-            {disciplines.map((d, i) => (
-              <MobileMarqueeCard key={`${listIndex}-${i}`} d={d} index={i} />
-            ))}
-          </div>
-        ))}
+      {/* ── Mobile: Auto-playing swipable carousel ── */}
+      <div 
+        className="md:hidden relative w-full pb-8 pt-4 bg-transparent"
+        onTouchStart={() => isTouching.current = true}
+        onTouchEnd={() => {
+           // Small delay to allow swipe momentum to finish before resuming auto-play
+           setTimeout(() => isTouching.current = false, 2000);
+        }}
+      >
+        <div 
+          ref={scrollRef}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-4"
+        >
+          {disciplines.map((d, i) => (
+            <MobileMarqueeCard key={i} d={d} index={i} isActive={activeIndex === i} />
+          ))}
+        </div>
       </div>
 
       {/* ── Desktop: Box layout ── */}
