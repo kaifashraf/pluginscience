@@ -5,6 +5,45 @@ import HomeDisciplinesCarousel from '@/components/HomeDisciplinesCarousel';
 
 
 
+const disciplines = [
+  {
+    num: '01',
+    title: 'Aerospace & Drones',
+    subtitle: 'From theory to the sky',
+    desc: 'Build, calibrate, and fly. Master the science of aerodynamics, construct custom quadcopters and fixed wing aircraft, and program autonomous flight systems using real engineering tools.',
+    accent: 'group-hover:text-theme-drone',
+    bar: 'bg-theme-drone',
+    href: '/workshops'
+  },
+  {
+    num: '02',
+    title: 'Robotics & Electronics',
+    subtitle: 'Engineer the physical world',
+    desc: 'Design and wire circuits, program microcontrollers, and bring mechanical systems to life. From basic electronics to advanced robotic arms, hands first, always.',
+    accent: 'group-hover:text-theme-robotics',
+    bar: 'bg-theme-robotics',
+    href: '/workshops'
+  },
+  {
+    num: '03',
+    title: 'AI & Data Science',
+    subtitle: 'Intelligence by design',
+    desc: 'Train models, interpret data, and deploy intelligent systems. Work with computer vision, machine learning pipelines, and real world datasets to build software that thinks.',
+    accent: 'group-hover:text-theme-data',
+    bar: 'bg-theme-data',
+    href: '/workshops'
+  },
+  {
+    num: '04',
+    title: 'Competitions & Events',
+    subtitle: 'Prove your craft',
+    desc: 'Hackathons, inter college drone races, science fairs, and innovation challenges. Compete, collaborate, and earn recognition alongside a network of ambitious builders.',
+    accent: 'group-hover:text-theme-community',
+    bar: 'bg-theme-community',
+    href: '/contact'
+  },
+];
+
 export default function Home() {
   return (
     <div className="bg-[#F5F3EF] min-h-screen">
@@ -107,7 +146,36 @@ export default function Home() {
             </div>
           </div>
 
-          <HomeDisciplinesCarousel />
+          <div className="divide-y divide-white/10">
+            {disciplines.map((d, i) => (
+              <Link href={d.href} key={i}>
+                <div
+                  className="group flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-6 py-10 md:py-14 cursor-pointer hover:bg-white/[0.02] transition-colors px-2 relative"
+                >
+                  <div className="md:col-span-1 flex items-start pt-1">
+                    <span className="text-white/20 text-sm font-mono">{d.num}</span>
+                  </div>
+                  <div className="md:col-span-4 pr-14 md:pr-0">
+                    <h3 className={`font-display font-medium text-white transition-colors duration-300 ${d.accent}`}
+                        style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)' }}>
+                      {d.title}
+                    </h3>
+                    <p className="text-white/30 text-xs font-mono uppercase tracking-widest mt-2">{d.subtitle}</p>
+                  </div>
+                  <div className="hidden md:flex md:col-span-6 items-center">
+                    <p className="text-white/50 font-sans font-light leading-relaxed text-base md:text-lg md:translate-x-4 group-hover:translate-x-0 group-hover:text-white/70 transition-all duration-500">
+                      {d.desc}
+                    </p>
+                  </div>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 md:static md:translate-y-0 md:col-span-1 flex items-center justify-end">
+                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
+                      <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
