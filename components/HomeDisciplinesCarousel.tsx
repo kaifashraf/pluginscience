@@ -55,48 +55,37 @@ export default function HomeDisciplinesCarousel() {
 
   return (
     <>
-      {/* ── Mobile: Horizontal carousel ── */}
-      <div className="md:hidden relative">
-        {/* Floating Right Arrow */}
-        <div className="absolute right-2 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-          <button
-            onClick={() => scroll('right')}
-            className="pointer-events-auto text-white/80 hover:text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] transition-colors"
-            aria-label="Scroll right"
-          >
-            <ChevronRight className="w-14 h-14" strokeWidth={1.5} />
-          </button>
-        </div>
-
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 px-4 md:px-0"
-        >
-          {disciplines.map((d, i) => (
-            <Link href={d.href} key={i} className="shrink-0 w-[78vw] snap-start">
-              <div className="bg-white/[0.04] border border-white/10 p-8 flex flex-col justify-between min-h-[380px] group cursor-pointer hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300">
-                <div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="text-white/20 text-xs font-mono">{d.num}</span>
-                    <div className={`h-[1px] w-8 ${d.bar}`} />
+      {/* ── Mobile: Continuous Marquee ── */}
+      <div className="md:hidden relative flex overflow-hidden w-full pb-4 bg-transparent group/marquee">
+        {/* We render two identical lists side by side to create the infinite scroll effect */}
+        {[...Array(2)].map((_, listIndex) => (
+          <div key={listIndex} className="flex gap-4 animate-marquee whitespace-nowrap pl-4 group-hover/marquee:[animation-play-state:paused]">
+            {disciplines.map((d, i) => (
+              <Link href={d.href} key={`${listIndex}-${i}`} className="shrink-0 w-[78vw]">
+                <div className="bg-white/[0.04] border border-white/10 p-8 flex flex-col justify-between min-h-[380px] group cursor-pointer hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 h-full whitespace-normal">
+                  <div>
+                    <div className="flex items-center gap-4 mb-4">
+                      <span className="text-white/20 text-xs font-mono">{d.num}</span>
+                      <div className={`h-[1px] w-8 ${d.bar}`} />
+                    </div>
+                    <h3 className={`font-display font-medium text-white mb-2 text-2xl leading-tight`}>
+                      {d.title}
+                    </h3>
+                    <p className="text-white/30 text-xs font-mono uppercase tracking-widest mb-5">{d.subtitle}</p>
+                    <p className="text-white/50 font-sans font-light leading-relaxed text-sm line-clamp-3">
+                      {d.desc}
+                    </p>
                   </div>
-                  <h3 className={`font-display font-medium text-white mb-2 text-2xl leading-tight`}>
-                    {d.title}
-                  </h3>
-                  <p className="text-white/30 text-xs font-mono uppercase tracking-widest mb-5">{d.subtitle}</p>
-                  <p className="text-white/50 font-sans font-light leading-relaxed text-sm line-clamp-3">
-                    {d.desc}
-                  </p>
-                </div>
-                <div className="flex items-center justify-end mt-6">
-                  <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
-                    <ArrowUpRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white transition-colors" />
+                  <div className="flex items-center justify-end mt-6">
+                    <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
+                      <ArrowUpRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white transition-colors" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        ))}
       </div>
 
       {/* ── Desktop: Box layout ── */}
