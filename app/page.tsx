@@ -70,8 +70,14 @@ export default function Home() {
       </section>
 
       {/* MANIFESTO */}
-      <section className="pt-16 pb-20 bg-[#F5F3EF]">
+      <section className="py-32 bg-[#F5F3EF]">
         <div className="container-fluid">
+
+          {/* Top label */}
+          <div className="flex items-center gap-6 mb-20">
+            <span className="text-xs font-mono text-[#999] uppercase tracking-[0.25em]">001 / Our Belief</span>
+            <div className="flex-1 h-[1px] bg-[#0A0A0A]/10" />
+          </div>
 
           {/* Main content: two column */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
@@ -124,10 +130,11 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           DISCIPLINES : full-width accordion rows
       ═══════════════════════════════════════ */}
-      <section className="bg-[#0A0A0A] pt-16 pb-20">
+      <section className="bg-[#0A0A0A] py-24">
         <div className="container-fluid">
-          <div className="flex items-end justify-between mb-12 pb-8 border-b border-white/10">
+          <div className="flex items-end justify-between mb-16 pb-8 border-b border-white/10">
             <div>
+              <span className="text-xs font-mono text-white/30 uppercase tracking-[0.25em] block mb-4">002 / Disciplines</span>
               <h2 className="font-display font-light text-white" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
                 What we teach.
               </h2>
@@ -173,9 +180,10 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           WHO IS THIS FOR : 3 tiles
       ═══════════════════════════════════════ */}
-      <section className="pt-16 pb-24 bg-[#F5F3EF]">
+      <section className="py-36 bg-[#F5F3EF]">
         <div className="container-fluid">
-          <div className="mb-12">
+          <div className="mb-20">
+            <span className="text-xs font-mono text-[#999] uppercase tracking-[0.25em] block mb-4">003 / For You</span>
             <h2 className="font-display font-light text-[#0A0A0A]" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
               Who should join?
             </h2>
