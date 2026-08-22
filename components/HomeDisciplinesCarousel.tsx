@@ -70,11 +70,11 @@ export default function HomeDisciplinesCarousel() {
 
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 px-4 md:px-0"
         >
           {disciplines.map((d, i) => (
             <Link href={d.href} key={i} className="shrink-0 w-[78vw] snap-start">
-              <div className="bg-white/[0.04] border border-white/10 p-8 flex flex-col justify-between min-h-[280px] group cursor-pointer hover:bg-white/[0.06] transition-colors">
+              <div className="bg-white/[0.04] border border-white/10 p-8 flex flex-col justify-between min-h-[380px] group cursor-pointer hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
                     <span className="text-white/20 text-xs font-mono">{d.num}</span>
