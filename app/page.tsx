@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import HomeHero from '@/components/HomeHero';
-import HomeAudienceCarousel from '@/components/HomeAudienceCarousel';
 import HomeDisciplinesCarousel from '@/components/HomeDisciplinesCarousel';
 
 
@@ -124,7 +123,50 @@ export default function Home() {
             </h2>
           </div>
 
-          <HomeAudienceCarousel />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#0A0A0A]/10">
+            {[
+              {
+                title: 'Students & Learners',
+                desc: 'School or college, curious or passionate, if you want to build real things and understand how technology actually works, this is for you.',
+                cta: 'Browse Workshops',
+                href: '#',
+                bg: 'bg-[#F5F3EF]',
+              },
+              {
+                title: 'Schools & Institutions',
+                desc: 'Bring a live engineering workshop to your campus. We design, deliver, and manage everything, from materials to mentorship.',
+                cta: 'Partner With Us',
+                href: '/contact',
+                bg: 'bg-[#0A0A0A]',
+                dark: true,
+              },
+              {
+                title: 'Mentors & Experts',
+                desc: 'If you are an engineer, researcher, or practitioner who wants to give back, join our growing network of mentors and workshop facilitators.',
+                cta: 'Apply to Mentor',
+                href: '/mentors',
+                bg: 'bg-[#F5F3EF]',
+              },
+            ].map((tile, i) => (
+              <div key={i} className={`${tile.bg} p-14 flex flex-col justify-between min-h-[400px] group cursor-pointer`}>
+                <div>
+                  <h3 className={`font-display font-medium mb-6 leading-tight ${tile.dark ? 'text-white' : 'text-[#0A0A0A]'}`}
+                      style={{ fontSize: 'clamp(1.8rem, 2.8vw, 2.5rem)' }}>
+                    {tile.title}
+                  </h3>
+                  <p className={`font-sans font-light leading-relaxed text-lg ${tile.dark ? 'text-white/60' : 'text-[#666]'}`}>
+                    {tile.desc}
+                  </p>
+                </div>
+                <Link href={tile.href}>
+                  <div className={`flex items-center gap-3 text-sm font-sans font-medium group/link mt-12 ${tile.dark ? 'text-white/70 hover:text-white' : 'text-[#0A0A0A]/60 hover:text-[#0A0A0A]'} transition-colors`}>
+                    {tile.cta}
+                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
