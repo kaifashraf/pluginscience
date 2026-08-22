@@ -41,21 +41,14 @@ export default function HomeAudienceCarousel() {
 
   return (
     <div className="relative">
-      {/* Mobile Navigation Arrows */}
-      <div className="md:hidden flex justify-end gap-3 mb-6">
-        <button 
-          onClick={() => scroll('left')}
-          className="w-12 h-12 rounded-full border border-[#0A0A0A]/20 flex items-center justify-center bg-transparent hover:bg-black/5 transition-colors"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft className="w-5 h-5 text-[#0A0A0A]" />
-        </button>
+      {/* Floating Right Arrow for Mobile */}
+      <div className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
         <button 
           onClick={() => scroll('right')}
-          className="w-12 h-12 rounded-full border border-[#0A0A0A]/20 flex items-center justify-center bg-transparent hover:bg-black/5 transition-colors"
+          className="pointer-events-auto text-white/90 hover:text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-colors"
           aria-label="Scroll right"
         >
-          <ChevronRight className="w-5 h-5 text-[#0A0A0A]" />
+          <ChevronRight className="w-16 h-16" strokeWidth={1.5} />
         </button>
       </div>
 
@@ -66,7 +59,7 @@ export default function HomeAudienceCarousel() {
         {tiles.map((tile, i) => (
           <div 
             key={i} 
-            className={`${tile.bg} p-10 md:p-14 flex flex-col justify-between min-h-[380px] md:min-h-[400px] group cursor-pointer w-[85vw] md:w-auto shrink-0 snap-center border border-[#0A0A0A]/10 md:border-0`}
+            className={`${tile.bg} p-10 md:p-14 flex flex-col justify-between min-h-[380px] md:min-h-[400px] group cursor-pointer w-[82vw] md:w-auto shrink-0 snap-center border border-[#0A0A0A]/10 md:border-0`}
           >
             <div>
               <h3 className={`font-display font-medium mb-6 leading-tight ${tile.dark ? 'text-white' : 'text-[#0A0A0A]'}`}
