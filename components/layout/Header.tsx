@@ -150,17 +150,18 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden bg-[#0D0D0D] fixed inset-0 z-[60] flex flex-col overflow-y-auto"
-            >
+      </header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:hidden bg-[#0D0D0D] fixed inset-0 z-[100] flex flex-col overflow-y-auto"
+          >
               {/* Custom Mobile Header for precise close button alignment */}
               <div className="flex items-center justify-between px-7 py-7">
                 <span className="font-display font-medium tracking-tight text-[#EDE6D6] leading-none" style={{ fontSize: '1.6rem' }}>
@@ -262,7 +263,6 @@ export default function Header() {
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
 
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
