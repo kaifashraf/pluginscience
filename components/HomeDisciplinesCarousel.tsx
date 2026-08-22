@@ -99,31 +99,31 @@ export default function HomeDisciplinesCarousel() {
         </div>
       </div>
 
-      {/* ── Desktop: Original list layout ── */}
-      <div className="hidden md:block divide-y divide-white/10">
+      {/* ── Desktop: Box layout ── */}
+      <div className="hidden md:flex md:flex-col gap-8">
         {disciplines.map((d, i) => (
           <Link href={d.href} key={i}>
             <div
-              className="group grid grid-cols-12 gap-6 py-14 cursor-pointer hover:bg-white/[0.02] transition-colors px-2 relative"
+              className="group grid grid-cols-12 gap-8 py-20 px-12 cursor-pointer bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-white/20 hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="col-span-1 flex items-start pt-1">
-                <span className="text-white/20 text-sm font-mono">{d.num}</span>
+              <div className="col-span-1 flex items-start pt-2">
+                <span className="text-white/20 text-base font-mono">{d.num}</span>
               </div>
-              <div className="col-span-4">
+              <div className="col-span-4 pr-12">
                 <h3 className={`font-display font-medium text-white transition-colors duration-300 group-hover:${d.accent}`}
-                    style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)' }}>
+                    style={{ fontSize: 'clamp(2rem, 3.5vw, 3.2rem)' }}>
                   {d.title}
                 </h3>
-                <p className="text-white/30 text-xs font-mono uppercase tracking-widest mt-2">{d.subtitle}</p>
+                <p className="text-white/40 text-xs font-mono uppercase tracking-widest mt-4">{d.subtitle}</p>
               </div>
               <div className="col-span-6 flex items-center">
-                <p className="text-white/50 font-sans font-light leading-relaxed text-lg translate-x-4 group-hover:translate-x-0 group-hover:text-white/70 transition-all duration-500">
+                <p className="text-white/50 font-sans font-light leading-relaxed text-xl group-hover:text-white/70 transition-colors duration-500">
                   {d.desc}
                 </p>
               </div>
               <div className="col-span-1 flex items-center justify-end">
-                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
-                  <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
+                <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 group-hover:bg-white/5 transition-all duration-300">
+                  <ArrowUpRight className="w-6 h-6 text-white/30 group-hover:text-white transition-colors" />
                 </div>
               </div>
             </div>
