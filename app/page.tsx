@@ -148,7 +148,7 @@ export default function Home() {
             {disciplines.map((d, i) => (
               <Link href={d.href} key={i}>
                 <div
-                  className="group flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-6 py-8 md:py-14 cursor-pointer hover:bg-white/[0.02] transition-colors px-2 relative"
+                  className="group flex flex-col md:grid md:grid-cols-12 gap-2 md:gap-6 py-4 md:py-14 cursor-pointer hover:bg-white/[0.02] transition-colors px-2 relative"
                 >
                   <div className="md:col-span-1 flex items-start pt-1">
                     <span className="text-white/20 text-sm font-mono">{d.num}</span>
