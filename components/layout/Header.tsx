@@ -41,19 +41,16 @@ export default function Header() {
   }, []);
 
   // On dark hero (not scrolled) → white text. On scroll → light bg + dark text.
-  // If mobile menu is open, force dark text colors to match the dark menu bg.
-  const isLight = scrolled && !mobileMenuOpen;
+  const isLight = scrolled;
 
   return (
     <>
       <header
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out',
-          mobileMenuOpen
-            ? 'bg-[#0D0D0D] py-4'
-            : isLight
-              ? 'bg-[#F5F3EF]/95 backdrop-blur-xl border-b border-black/8 py-4'
-              : 'bg-transparent py-7'
+          isLight
+            ? 'bg-[#F5F3EF]/95 backdrop-blur-xl border-b border-black/8 py-4'
+            : 'bg-transparent py-7'
         )}
       >
         <div className="container-fluid">
@@ -142,7 +139,7 @@ export default function Header() {
               <button
                 className={cn(
                   'lg:hidden p-2 transition-colors duration-300',
-                  (isLight && !mobileMenuOpen) ? 'text-[#0A0A0A]' : 'text-[#EDE6D6]'
+                  isLight ? 'text-[#0A0A0A]' : 'text-white'
                 )}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
@@ -157,20 +154,19 @@ export default function Header() {
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden overflow-y-auto bg-[#0D0D0D] fixed top-[68px] left-0 right-0 bottom-0 z-40 px-6 pb-12 flex flex-col"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: '100vh' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden overflow-y-auto bg-[#050505]/95 backdrop-blur-2xl border-t border-white/5 fixed top-[76px] left-0 right-0 bottom-0 z-40 pb-20"
             >
-              <nav className="flex flex-col flex-grow pt-4">
+              <nav className="flex flex-col px-8 py-10 gap-1 max-w-sm mx-auto">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.label}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 + 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="border-b border-[#EDE6D6]/10 last:border-none"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 + 0.1, duration: 0.4 }}
                   >
                     {link.dropdown ? (
                       <button
@@ -178,19 +174,19 @@ export default function Header() {
                           e.preventDefault();
                           setMobileDropdownOpen(mobileDropdownOpen === link.label ? null : link.label);
                         }}
-                        className="w-full text-left flex items-center justify-between py-6 text-4xl sm:text-5xl font-display font-light tracking-tight transition-colors text-[#EDE6D6] hover:text-[#3A5FCD]"
+                        className={cn(
+                          "w-full text-left flex items-center justify-between py-3.5 text-[28px] font-display font-medium tracking-tight transition-colors",
+                          mobileDropdownOpen === link.label ? "text-theme-drone" : "text-white/90 hover:text-white"
+                        )}
                       >
                         {link.label}
-                        <ChevronDown className={cn(
-                          "w-6 h-6 transition-transform duration-400", 
-                          mobileDropdownOpen === link.label ? "rotate-180 text-[#3A5FCD]" : "text-[#EDE6D6]/30"
-                        )} />
+                        <ChevronDown className={cn("w-5 h-5 transition-transform duration-400 text-white/30", mobileDropdownOpen === link.label && "rotate-180 text-theme-drone")} />
                       </button>
                     ) : (
                       <Link
                         href={link.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block py-6 text-4xl sm:text-5xl font-display font-light tracking-tight transition-colors text-[#EDE6D6] hover:text-[#3A5FCD]"
+                        className="block py-3.5 text-[28px] font-display font-medium tracking-tight text-white/90 hover:text-white transition-colors"
                       >
                         {link.label}
                       </Link>
@@ -206,13 +202,13 @@ export default function Header() {
                             transition={{ duration: 0.3, ease: 'easeOut' }}
                             className="overflow-hidden"
                           >
-                            <div className="flex flex-col gap-4 pl-4 pb-8">
+                            <div className="flex flex-col gap-3 pl-4 pb-4 border-l border-white/10 ml-2 mt-2">
                               {link.dropdown.map((dropItem) => (
                                 <Link
                                   key={dropItem.label}
                                   href={dropItem.href}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className="text-lg font-sans font-light tracking-wide text-[#EDE6D6]/60 hover:text-[#EDE6D6] transition-colors"
+                                  className="py-1.5 text-base font-sans font-light tracking-wide text-white/50 hover:text-white transition-colors"
                                 >
                                   {dropItem.label}
                                 </Link>
@@ -224,29 +220,29 @@ export default function Header() {
                     )}
                   </motion.div>
                 ))}
-              </nav>
                 
-              <motion.div 
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                className="mt-12 flex flex-col gap-4"
-              >
-                <Link
-                  href="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-4 bg-[#3A5FCD] text-[#EDE6D6] text-sm font-sans font-medium tracking-wide rounded-sm hover:bg-[#3A5FCD]/90 transition-colors shadow-lg shadow-[#3A5FCD]/20"
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="pt-10 mt-6 flex flex-col gap-5 border-t border-white/5"
                 >
-                  Get in Touch
-                </Link>
-                <Link
-                  href="/mentors"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-3 text-[11px] font-sans uppercase tracking-[0.2em] text-[#EDE6D6]/50 hover:text-[#EDE6D6] transition-colors"
-                >
-                  Apply as Mentor
-                </Link>
-              </motion.div>
+                  <Link
+                    href="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="inline-flex items-center text-xs font-mono uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors"
+                  >
+                    Get in Touch <span className="ml-2">→</span>
+                  </Link>
+                  <Link
+                    href="/mentors"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="inline-flex items-center text-xs font-mono uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors"
+                  >
+                    Apply as Mentor <span className="ml-2">→</span>
+                  </Link>
+                </motion.div>
+              </nav>
             </motion.div>
           )}
         </AnimatePresence>
