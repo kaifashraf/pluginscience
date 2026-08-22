@@ -148,24 +148,24 @@ export default function Home() {
             {disciplines.map((d, i) => (
               <Link href={d.href} key={i}>
                 <div
-                  className="group grid grid-cols-1 md:grid-cols-12 gap-6 py-10 md:py-14 cursor-pointer hover:bg-white/[0.02] transition-colors px-2"
+                  className="group flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-6 py-8 md:py-14 cursor-pointer hover:bg-white/[0.02] transition-colors px-2 relative"
                 >
                   <div className="md:col-span-1 flex items-start pt-1">
                     <span className="text-white/20 text-sm font-mono">{d.num}</span>
                   </div>
-                  <div className="md:col-span-4">
+                  <div className="md:col-span-4 pr-14 md:pr-0">
                     <h3 className={`font-display font-medium text-white transition-colors duration-300 ${d.accent}`}
                         style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)' }}>
                       {d.title}
                     </h3>
                     <p className="text-white/30 text-xs font-mono uppercase tracking-widest mt-2">{d.subtitle}</p>
                   </div>
-                  <div className="md:col-span-6 flex items-center">
-                    <p className="text-white/50 font-sans font-light leading-relaxed text-base md:text-lg opacity-0 md:opacity-100 md:translate-x-4 group-hover:translate-x-0 group-hover:text-white/70 transition-all duration-500">
+                  <div className="hidden md:flex md:col-span-6 items-center">
+                    <p className="text-white/50 font-sans font-light leading-relaxed text-base md:text-lg md:translate-x-4 group-hover:translate-x-0 group-hover:text-white/70 transition-all duration-500">
                       {d.desc}
                     </p>
                   </div>
-                  <div className="md:col-span-1 flex items-center justify-end">
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 md:static md:translate-y-0 md:col-span-1 flex items-center justify-end">
                     <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
                       <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
                     </div>
