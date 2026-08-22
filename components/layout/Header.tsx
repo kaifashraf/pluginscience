@@ -151,22 +151,38 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: '100vh' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden overflow-y-auto bg-[#050505]/95 backdrop-blur-2xl border-t border-white/5 fixed top-[76px] left-0 right-0 bottom-0 z-40 pb-20"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden bg-[#0D0D0D] fixed inset-0 z-[60] flex flex-col overflow-y-auto"
             >
-              <nav className="flex flex-col px-8 py-10 gap-1 max-w-sm mx-auto">
+              {/* Custom Mobile Header for precise close button alignment */}
+              <div className="flex items-center justify-between px-7 py-7">
+                <span className="font-display font-medium tracking-tight text-[#EDE6D6] leading-none" style={{ fontSize: '1.6rem' }}>
+                  PluginScience<span className="text-[#3A5FCD]">.</span>
+                </span>
+                <button
+                  className="p-2 -mr-2 text-[#EDE6D6]/60 hover:text-[#EDE6D6] transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6 stroke-[1.2]" />
+                </button>
+              </div>
+
+              <nav className="flex flex-col flex-grow px-7 pt-6">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.label}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 + 0.1, duration: 0.4 }}
+                    transition={{ delay: i * 0.05 + 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className={cn("border-b border-[#EDE6D6]/5", i === navLinks.length - 1 ? "border-none" : "")}
                   >
                     {link.dropdown ? (
                       <button
@@ -174,21 +190,21 @@ export default function Header() {
                           e.preventDefault();
                           setMobileDropdownOpen(mobileDropdownOpen === link.label ? null : link.label);
                         }}
-                        className={cn(
-                          "w-full text-left flex items-center justify-between py-3.5 text-[28px] font-display font-medium tracking-tight transition-colors",
-                          mobileDropdownOpen === link.label ? "text-theme-drone" : "text-white/90 hover:text-white"
-                        )}
+                        className="w-full text-left flex items-center justify-between py-5 text-[20px] font-display font-medium tracking-wide text-[#EDE6D6] hover:text-[#3A5FCD] transition-colors group"
                       >
-                        {link.label}
-                        <ChevronDown className={cn("w-5 h-5 transition-transform duration-400 text-white/30", mobileDropdownOpen === link.label && "rotate-180 text-theme-drone")} />
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">{link.label}</span>
+                        <ChevronDown className={cn(
+                          "w-4 h-4 stroke-[1.5] transition-transform duration-400", 
+                          mobileDropdownOpen === link.label ? "rotate-180 text-[#3A5FCD]" : "text-[#EDE6D6]/30"
+                        )} />
                       </button>
                     ) : (
                       <Link
                         href={link.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block py-3.5 text-[28px] font-display font-medium tracking-tight text-white/90 hover:text-white transition-colors"
+                        className="block py-5 text-[20px] font-display font-medium tracking-wide text-[#EDE6D6] hover:text-[#3A5FCD] transition-colors group"
                       >
-                        {link.label}
+                        <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">{link.label}</span>
                       </Link>
                     )}
                     
@@ -202,13 +218,13 @@ export default function Header() {
                             transition={{ duration: 0.3, ease: 'easeOut' }}
                             className="overflow-hidden"
                           >
-                            <div className="flex flex-col gap-3 pl-4 pb-4 border-l border-white/10 ml-2 mt-2">
+                            <div className="flex flex-col gap-3 pl-4 pb-5 pt-1">
                               {link.dropdown.map((dropItem) => (
                                 <Link
                                   key={dropItem.label}
                                   href={dropItem.href}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className="py-1.5 text-base font-sans font-light tracking-wide text-white/50 hover:text-white transition-colors"
+                                  className="py-1.5 text-[15px] font-sans font-light tracking-wide text-[#EDE6D6]/60 hover:text-[#EDE6D6] transition-colors"
                                 >
                                   {dropItem.label}
                                 </Link>
@@ -220,29 +236,29 @@ export default function Header() {
                     )}
                   </motion.div>
                 ))}
-                
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="pt-10 mt-6 flex flex-col gap-5 border-t border-white/5"
-                >
-                  <Link
-                    href="/contact"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="inline-flex items-center text-xs font-mono uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors"
-                  >
-                    Get in Touch <span className="ml-2">→</span>
-                  </Link>
-                  <Link
-                    href="/mentors"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="inline-flex items-center text-xs font-mono uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors"
-                  >
-                    Apply as Mentor <span className="ml-2">→</span>
-                  </Link>
-                </motion.div>
               </nav>
+                
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.5 }}
+                className="px-7 pb-12 mt-auto pt-10 flex flex-col gap-6"
+              >
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full h-[52px] flex items-center justify-center bg-[#3A5FCD] text-white font-sans font-medium text-[13px] tracking-[0.05em] rounded-[4px] hover:bg-[#3A5FCD]/90 active:scale-[0.98] transition-all duration-300"
+                >
+                  Get In Touch
+                </Link>
+                <Link
+                  href="/mentors"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center text-[10px] font-sans font-medium uppercase tracking-[0.2em] text-[#EDE6D6]/40 hover:text-[#EDE6D6]/70 transition-colors"
+                >
+                  APPLY AS MENTOR
+                </Link>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
