@@ -27,7 +27,7 @@ export default function HomeHero() {
 
     // Defer loading video to prioritize LCP image, especially on mobile
     const timer = setTimeout(() => {
-      video.src = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/workshop.mp4`;
+      video.src = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero/workshop.webm`;
       video.load();
       video.play().catch(() => {});
     }, window.innerWidth < 768 ? 2000 : 500);
