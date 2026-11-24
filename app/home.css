@@ -2,7 +2,7 @@
  * paper: oklch(96.4% 0.006 85) · accent: oklch(52% 0.25 263) · display: Cormorant Garamond · body: DM Sans · hero: Index · nav: kept (site-wide edge-aligned bar) · footer: kept (site-wide index columns) · signature: the four disciplines as the hero, each under its own brand colour
  * axes: light/high-contrast-serif/chromatic-blue · posture: full palette (field: the discipline colours in the switcher, signal: drone blue, ink, paper) · contrast: pass · fold: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 · weakest: P, the page argues for building over watching; led every section with the disciplines and the people, cut the stock circuit video, the ghost wordmark and the fleurons */
-/* Hallmark · dropped components/HomeHero.tsx video (hero/workshop.webm, hero/poster.webp) · a generated clip with a visible Gemini watermark that shows no PluginScience workshop; the files stay in public/hero */
+/* Hallmark · kept the hero video (hero/workshop.webm, poster hero/poster.webp) at the owner's request, dimmed under an ink wash with a pause control (18) */
 /* Hallmark · dropped "Begin here." and "001 / Our Belief", "002 / Disciplines", "003 / For You" · 54 names eyebrows */
 /* Hallmark · reworded "Hands-on workshops in aerospace, robotics, AI, and beyond. For students who want to make things that actually work." to "Hands-on workshops for students who want to make things that work." · 58 names the hero line */
 /* Hallmark · dropped "Every session is built around doing, not listening." · 69 names the echo of "Every session is built around doing, not watching." */
@@ -42,6 +42,9 @@
   --color-accent-ink: oklch(97% 0.006 85);
   --color-focus: oklch(52% 0.25 263);
   --color-focus-on-ink: oklch(86% 0.15 205);
+  --color-hero-wash-top: oklch(15.5% 0.004 265 / 0.7);
+  --color-hero-wash-mid: oklch(15.5% 0.004 265 / 0.45);
+  --color-hero-wash-foot: oklch(15.5% 0.004 265 / 0.85);
 
   /* the four discipline colours, tailwind.config.ts theme-* */
   --color-drone: oklch(52% 0.25 263);       /* #0055FF */
@@ -97,7 +100,16 @@ html { scrollbar-color: var(--color-muted) var(--color-paper); }
 .hm-link:active { opacity: 0.8; }
 
 /* ---------- hero: the index ---------- */
-.hm-hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-block: calc(var(--space-3xl) + var(--space-xl)) var(--space-2xl); }
+.hm-hero { position: relative; isolation: isolate; overflow: clip; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-block: calc(var(--space-3xl) + var(--space-xl)) var(--space-2xl); }
+.hm-hero__media { position: absolute; inset: 0; z-index: -1; background: var(--color-ink); color: var(--color-on-ink); }
+.hm-hero__media video { width: 100%; height: 100%; object-fit: cover; opacity: 0.45; }
+.hm-hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, var(--color-hero-wash-top), var(--color-hero-wash-mid) 45%, var(--color-hero-wash-foot)); }
+.hm-hero__content { position: relative; }
+.hm-hero__pause { position: absolute; right: var(--space-lg); bottom: var(--space-lg); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--color-rule-on-ink); border-radius: var(--radius-pill); background: var(--color-hero-wash-top); color: var(--color-on-ink); cursor: pointer; transition: background-color var(--dur-short) var(--ease-out); }
+.hm-hero__pause svg { width: 16px; height: 16px; }
+.hm-hero__pause:hover { background: var(--color-ink-2); }
+.hm-hero__pause:active { opacity: 0.8; }
+.hm-hero__pause:disabled { opacity: 0.55; cursor: not-allowed; }
 .hm-hero__top { align-items: end; row-gap: var(--space-xl); }
 .hm-hero h1 { grid-column: 1 / span 8; max-width: 16ch; font-size: var(--text-hero); line-height: 0.98; }
 .hm-hero__side { grid-column: 9 / span 4; display: flex; flex-direction: column; gap: var(--space-lg); padding-bottom: var(--space-xs); }
@@ -210,6 +222,6 @@ html { scrollbar-color: var(--color-muted) var(--color-paper); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hm-btn, .hm-btn svg, .hm-link, .hm-index__title, .hm-index__title svg, .hm-tab, .hm-tab svg { transition: none; }
+  .hm-hero__pause, .hm-btn, .hm-btn svg, .hm-link, .hm-index__title, .hm-index__title svg, .hm-tab, .hm-tab svg { transition: none; }
   .hm-btn:hover svg, .hm-index a:hover .hm-index__title svg, .hm-btn:active { transform: none; }
 }
