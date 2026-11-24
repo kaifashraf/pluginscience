@@ -169,11 +169,12 @@ html { scrollbar-color: var(--color-muted) var(--color-paper); }
 /* ---------- principles: band of four ---------- */
 .hm-principles { padding-block: var(--section-gap-s); }
 .hm-principles ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.hm-principles li { display: flex; flex-direction: column; gap: var(--space-lg); padding-inline: var(--space-lg); border-left: 1px solid var(--color-rule-on-ink); min-height: 260px; }
+/* subgrid: the four lines start on one baseline however the heads wrap */
+.hm-principles li { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: var(--space-xl); align-content: start; padding-inline: var(--space-lg); border-left: 1px solid var(--color-rule-on-ink); }
 .hm-principles li:first-child { padding-left: 0; border-left: 0; }
 .hm-principles li:last-child { padding-right: 0; }
 .hm-principles h3 { font-size: var(--text-section); max-width: 9ch; }
-.hm-principles p { margin-top: auto; color: var(--color-on-ink-muted); max-width: 28ch; }
+.hm-principles p { color: var(--color-on-ink-muted); max-width: 28ch; }
 
 /* ---------- audiences: lead tile and two rows ---------- */
 .hm-who { padding-block: var(--section-gap-l) var(--section-gap); }
@@ -207,7 +208,6 @@ html { scrollbar-color: var(--color-muted) var(--color-paper); }
   .hm-principles ul { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-2xl); }
   .hm-principles li:nth-child(3) { padding-left: 0; border-left: 0; }
   .hm-principles li:nth-child(2) { padding-right: 0; }
-  .hm-principles li { min-height: 0; }
   .hm-who__lead { min-height: 0; padding: var(--space-xl); }
   .hm-who__rows { margin-top: var(--space-2xl); }
   .hm-who__row { padding-block: var(--space-xl); }

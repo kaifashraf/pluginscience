@@ -71,7 +71,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-10">
+            <nav className="hidden xl:flex items-center gap-10">
               {navLinks.map((link) => (
                 <div key={link.label} className="relative group">
                   <Link
@@ -126,7 +126,7 @@ export default function Header() {
               <Link
                 href="/contact"
                 className={cn(
-                  'hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-xs font-sans font-medium tracking-wide border transition-all duration-300',
+                  'hidden md:inline-flex items-center gap-2 whitespace-nowrap px-5 py-2.5 text-xs font-sans font-medium tracking-wide border transition-all duration-300',
                   isLight
                     ? 'border-[#0A0A0A] text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white'
                     : 'border-white/50 text-white hover:bg-white hover:text-[#0A0A0A]'
@@ -138,7 +138,7 @@ export default function Header() {
               {/* Mobile hamburger */}
               <button
                 className={cn(
-                  'lg:hidden p-2 transition-colors duration-300',
+                  'xl:hidden p-2 transition-colors duration-300',
                   isLight ? 'text-[#0A0A0A]' : 'text-white'
                 )}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -160,7 +160,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden bg-[#0D0D0D] fixed inset-0 z-[100] flex flex-col overflow-y-auto"
+            className="xl:hidden bg-[#0D0D0D] fixed inset-0 z-[100] flex flex-col overflow-y-auto"
           >
               {/* Custom Mobile Header for precise close button alignment */}
               <div className="flex items-center justify-between px-7 py-7">
