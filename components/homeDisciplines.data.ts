@@ -5,6 +5,7 @@ export type Discipline = {
   desc: string;
   href: string;
   cta: string;
+  alt: string;
 };
 
 export const disciplines: Discipline[] = [
@@ -15,6 +16,7 @@ export const disciplines: Discipline[] = [
     desc: 'You put a quadcopter together from parts, tune its flight controller and find out why it stays in the air. Later sessions move on to fixed wing aircraft and code that flies the drone for you.',
     href: '/products/workshops',
     cta: 'See the drone workshops',
+    alt: 'Hands wiring the flight board of a quadcopter',
   },
   {
     id: 'robotics',
@@ -23,6 +25,7 @@ export const disciplines: Discipline[] = [
     desc: 'Start with a breadboard and a blinking LED. Move on to microcontrollers, sensors and motors, and finish with a robotic arm that does exactly what you programmed it to do.',
     href: '/products/workshops',
     cta: 'See the robotics workshops',
+    alt: 'A student in safety glasses building a small wheeled robot',
   },
   {
     id: 'data',
@@ -31,6 +34,7 @@ export const disciplines: Discipline[] = [
     desc: 'Collect real data, train a model and put it to work. Students build camera projects that spot and follow objects, and learn how to tell when a model has got it wrong.',
     href: '/products/workshops',
     cta: 'See the AI workshops',
+    alt: 'A tablet showing a block-coding program and a chart',
   },
   {
     id: 'community',
@@ -39,5 +43,6 @@ export const disciplines: Discipline[] = [
     desc: 'Hackathons, inter-college drone races, science fairs and innovation challenges. A deadline and a scoreboard teach you things a classroom never will.',
     href: '/contact',
     cta: 'Ask about upcoming events',
+    alt: 'Students high-fiving across a lab bench',
   },
 ];

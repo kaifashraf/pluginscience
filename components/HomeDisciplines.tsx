@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { disciplines } from '@/components/homeDisciplines.data';
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function HomeDisciplines() {
   const [active, setActive] = useState(0);
   // Without script every panel shows in order; tabs take over once hydrated.
@@ -72,15 +74,27 @@ export default function HomeDisciplines() {
               hidden={ready && active !== i}
               className={`hm-panel disc-${d.id}`}
             >
-              <div>
-                <h3>{d.title}</h3>
-                <p className="hm-panel__sub">{d.subtitle}</p>
-              </div>
-              <div className="hm-panel__foot">
-                <p>{d.desc}</p>
-                <Link href={d.href} className="hm-link">
-                  {d.cta}
-                </Link>
+              <figure className="hm-panel__media">
+                <img
+                  src={`${base}/home/${d.id}.webp`}
+                  alt={d.alt}
+                  width={1200}
+                  height={900}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+              <div className="hm-panel__body">
+                <div>
+                  <h3>{d.title}</h3>
+                  <p className="hm-panel__sub">{d.subtitle}</p>
+                </div>
+                <div className="hm-panel__foot">
+                  <p>{d.desc}</p>
+                  <Link href={d.href} className="hm-link">
+                    {d.cta}
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

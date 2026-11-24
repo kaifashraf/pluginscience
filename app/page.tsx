@@ -4,6 +4,8 @@ import HomeHero from '@/components/HomeHero';
 import HomeDisciplines from '@/components/HomeDisciplines';
 import './home.css';
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const principles = [
   { title: 'Hands on', desc: 'You spend the session building, not watching someone else build.' },
   { title: 'Taught by researchers', desc: 'Led by engineers and researchers trained at places like BIT Mesra and IIT Kanpur.' },
@@ -76,6 +78,34 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Founder: his portrait and his words */}
+      <section className="hm-founder" aria-label="From our founder">
+        <div className="hm-container hm-grid hm-founder__inner">
+          <figure className="hm-founder__photo">
+            <img
+              src={`${base}/home/founder.webp`}
+              alt="Dr. Md Gulam Sarwar, founder of PluginScience"
+              width={800}
+              height={1000}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <blockquote className="hm-founder__words">
+            <p className="hm-founder__quote">
+              “We owe it to our students to let them build, not just read about building.”
+            </p>
+            <footer className="hm-founder__who">
+              <strong>Dr. Md Gulam Sarwar, founder</strong>
+              <span>PhD, BIT Mesra. Postdoctoral fellow, IIT Kanpur.</span>
+            </footer>
+            <Link href="/about" className="hm-link">
+              Read how PluginScience started
+            </Link>
+          </blockquote>
         </div>
       </section>
 
