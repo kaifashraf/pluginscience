@@ -30,7 +30,7 @@ export default function HomeDisciplines() {
     <section className="hm-disc" aria-labelledby="disc-title">
       <div className="hm-container hm-grid">
         <div className="hm-disc__head">
-          <h2 id="disc-title">What we teach.</h2>
+          <h2 id="disc-title">Pick where you want to start</h2>
           <div
             className="hm-tabs"
             role="tablist"
@@ -59,7 +59,7 @@ export default function HomeDisciplines() {
               </button>
             ))}
           </div>
-          <p className="hm-tabs__note">More programmes coming soon.</p>
+          <p className="hm-tabs__note">More subjects are on the way.</p>
         </div>
 
         <div className="hm-panels">

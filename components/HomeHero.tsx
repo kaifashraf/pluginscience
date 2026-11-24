@@ -59,18 +59,18 @@ export default function HomeHero() {
 
       <div className="hm-container hm-hero__content">
         <div className="hm-grid hm-hero__top">
-          <h1 id="hero-title">Where Builders Are Born.</h1>
+          <h1 id="hero-title">Build the drone.<br />Then fly it.</h1>
           <div className="hm-hero__side">
             <p className="hm-hero__line">
-              Hands-on workshops for students who want to make things that work.
+              Workshops in drones, robotics and AI for school and college students.
             </p>
             <div className="hm-hero__actions">
               <Link href="/products/workshops" className="hm-btn">
-                Explore Workshops
+                See the workshops
                 <ArrowRight aria-hidden="true" />
               </Link>
               <Link href="/about" className="hm-link">
-                About PluginScience
+                Who teaches here
               </Link>
             </div>
           </div>

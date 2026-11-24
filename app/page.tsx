@@ -5,23 +5,23 @@ import HomeDisciplines from '@/components/HomeDisciplines';
 import './home.css';
 
 const principles = [
-  { title: 'Hands‑On First', desc: 'Every session is built around doing, not watching.' },
-  { title: 'Expert‑Led', desc: 'Taught by engineers from premier institutions.' },
-  { title: 'Real Hardware', desc: 'Students work with actual drones, circuits & code.' },
-  { title: 'Open to All', desc: 'School students, college learners, and curious minds.' },
+  { title: 'Hands on', desc: 'You spend the session building, not watching someone else build.' },
+  { title: 'Taught by researchers', desc: 'Led by engineers and researchers trained at places like BIT Mesra and IIT Kanpur.' },
+  { title: 'Real parts', desc: 'Real motors, sensors, circuit boards and code in your hands.' },
+  { title: 'Open to all', desc: 'School students, college students and anyone who likes taking things apart.' },
 ];
 
 const rows = [
   {
-    title: 'Students & Learners',
-    desc: 'School or college: if you want to build real things and see how technology works, this is for you.',
-    cta: 'Browse Workshops',
+    title: 'Students',
+    desc: 'If you have ever opened something up just to see how it works, start here.',
+    cta: 'Find a workshop',
     href: '/products/workshops',
   },
   {
-    title: 'Mentors & Experts',
-    desc: 'Engineers, researchers and practitioners who want to give back join our network of mentors and facilitators.',
-    cta: 'Apply to Mentor',
+    title: 'Engineers & researchers',
+    desc: 'Know your field and enjoy explaining it? Teach a session or guide a student project with us.',
+    cta: 'Apply to mentor',
     href: '/mentors',
   },
 ];
@@ -35,27 +35,27 @@ export default function Home() {
       <section className="hm-belief" aria-labelledby="belief-title">
         <div className="hm-container hm-grid">
           <div className="hm-belief__head">
-            <h2 id="belief-title">We do not teach technology.</h2>
-            <p className="hm-lead">We awaken the builder within.</p>
+            <h2 id="belief-title">Textbooks explain lift.</h2>
+            <p className="hm-lead">We hand you the propellers.</p>
           </div>
           <div className="hm-belief__body">
             <p>
-              We run hands-on workshops across India for school and college students. Students go
-              home with something they built themselves.
+              We run hands-on workshops across India for school and college students. Everyone
+              goes home with something they built and got working themselves.
             </p>
             <dl className="hm-tenets">
               <div>
-                <dt>Curiosity, Kindled.</dt>
+                <dt>It starts with a question</dt>
                 <dd>
-                  Every session starts with a real question, one students actually care about
-                  finding the answer to.
+                  Why does a drone tilt to turn? Each session opens with something students
+                  actually want to know, and we build our way to the answer.
                 </dd>
               </div>
               <div>
-                <dt>Skills, Forged.</dt>
+                <dt>It ends with something that works</dt>
                 <dd>
-                  Students leave with the confidence that comes from having built something real,
-                  no certificate can replicate that.
+                  A certificate says you attended. A circuit that lights up or a drone that holds
+                  its height says you can do it.
                 </dd>
               </div>
             </dl>
@@ -83,17 +83,17 @@ export default function Home() {
       <section className="hm-who" aria-labelledby="who-title">
         <div className="hm-container hm-grid">
           <div className="hm-who__head">
-            <h2 id="who-title">Who should join?</h2>
+            <h2 id="who-title">Who this is for</h2>
           </div>
           <div className="hm-who__lead on-ink">
-            <h3>Schools & Institutions</h3>
+            <h3>Schools & colleges</h3>
             <div className="hm-who__foot">
               <p>
-                Bring a live engineering workshop to your campus. We design, deliver, and manage
-                everything, from materials to mentorship.
+                We bring the workshop to your campus: the kits, the tools and the instructors. You
+                bring a room and a group of curious students.
               </p>
               <Link href="/contact" className="hm-btn">
-                Partner With Us
+                Host a workshop
                 <ArrowRight aria-hidden="true" />
               </Link>
             </div>
@@ -115,10 +115,10 @@ export default function Home() {
       {/* Close: the hero's action again */}
       <section className="hm-close on-ink" aria-labelledby="close-title">
         <div className="hm-container hm-grid hm-close__inner">
-          <h2 id="close-title">Your next build starts today.</h2>
+          <h2 id="close-title">Come and build something.</h2>
           <div className="hm-close__action">
             <Link href="/products/workshops" className="hm-btn">
-              View All Workshops
+              See the workshops
               <ArrowRight aria-hidden="true" />
             </Link>
           </div>
